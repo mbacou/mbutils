@@ -1,123 +1,296 @@
-#' Modified base R plot with Bootstrap branding
+#' Wrapper for base plot()
 #'
-#' Shorthand function to generate base R plots with custom Bootstrap branding. Many tips derived from [r-charts.com](https://r-charts.com/base-r/margins/), since base R graphic documentation is often lacking.
+#' Simply assign new default arguments to base R `plot` method. This function is exported but not meant to be called directly in most cases. Use [brand_on()] instead to apply plot customizations.
 #'
-#' @param axes position of X (`bottom` or `top`) and Y (`left` or `right`) axes (default: `bottomright`)
-#' @inheritParams graphics::plot.default
-#' @inheritDotParams graphics::plot.default
+#' Note that when package option `getOption(use.brand=FALSE)` then `plot.brand()` is entirely equivalent to `base::plot()`.
 #'
-#' @returns base R plot
+#'
+#' @param use.brand whether to use mofidied plot layout, default `TRUE`
+#' @inheritParams axes
+#' @inheritDotParams axes
+#' @inheritDotParams graphics::plot
+#' @seealso [axes()]
 #' @examples
 #' set.seed(1)
 #' x <- runif(100, min = -5, max = 5)
 #' y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 #'
-#' plot(x, y, main="Mel B. Labs Branded Plot", sub="Scatter plot")
-#' plot(x, y, nx=NULL,
-#'   main="Mel B. Labs Branded Plot", sub="Subtitle",
-#'   xlab="X Units", ylab="Y Units")
-#' abline(h=0, col=pal("red"), lwd=2)
+#' # Standard plot
+#' options(use.brand = FALSE)
+#' plot.brand(x, y, col=4,
+#'   main="Bootstrap Branded Plot", sub="Scatter plot")
 #'
-#' plot(x, type="h", col=pal(c("red", "green"))[(x > 0) + 1],
-#'   main="Mel B. Labs Branded Plot", sub="Histogram")
+#' # Branded defaults
+#' options(use.brand = TRUE)
+#' plot.brand(x, y, col=4,
+#'   main="Bootstrap Branded Plot", sub="Scatter plot with moded axes")
 #'
-#' par("fg")
-#' palette()
+#' plot.brand(x, y, type="h", col=(y>0)+4, side=c(1,4), nx=NULL,
+#'   main="Bootstrap Branded Plot", sub="Histogram with dummy legend")
+#' abline(h=0, col=pal.brand("red"), lwd=2)
+#' legend.brand(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
 #'
 #' @export
-plot <- function(
-  x,
+plot.brand <- function(
+  ...,
+  frame.plot = FALSE,
+  side = getOption("axes.side"),
+  use.brand = getOption("use.brand")
+) {
+  mg = if (use.brand & (4 %in% side)) par.brand()$mar else par("mar")
+  print(mg)
+  opar = par(
+    mar = mg,
+    ann = FALSE,
+    xaxt = "n",
+    yaxt = "n",
+    bty = par.brand()$bty,
+    no.readonly = TRUE
+  )
+  on.exit(par(opar))
+
+  # Plot
+  graphics::plot(...)
+
+  # Axes
+  if ((use.brand)) {
+    args = list(...)[names(formals(axes))]
+    args = args[sapply(args, length) > 0]
+    do.call(axes, c(list(side = side), args))
+  }
+}
+
+
+#' Wrapper for graphics::legend()
+#'
+#' Simply assign new default arguments to R base [legend()]. This function is not meant to be called directly, it is used by [brand_on()] instead.
+#'
+#' @inheritParams graphics::legend
+#' @inheritDotParams graphics::legend
+#'
+#' @seealso [axes()]
+#' @keywords internal
+#' @returns Branded legend for base R plots
+legend.brand <- function(
+  legend,
+  x = "topright",
   y = NULL,
-  axes = c("bottomright", "topright", "bottomleft", "topleft"),
-  bg = NULL,
-  col = pal(1),
-  lwd = 2,
-  main = NULL,
-  sub = NULL,
-  xlab = NULL,
-  ylab = NULL,
-  nx = NA,
-  ny = NULL,
-  grid.lty = "dotted",
-  grid.lwd = 2,
+  bty = "n",
+  horiz = TRUE,
+  xpd = TRUE,
+  inset = c(-0.05, -0.2),
+  par = par.brand(),
   ...
 ) {
-  axes = match.arg(axes)
-
-  opal = palette()
-  opar = par(par.labs())
-  on.exit(par(opar))
-  on.exit(palette(opal), add = TRUE)
-
-  # Use Bootstrap palette
-  palette(pal())
-
-  # Plot background
-  b = .globals$brand
-  bg = if (missing(bg)) b$color$palette[[b$color$background]][[1]] else bg
-
-  plot.default(
-    x,
-    y,
-    axes = FALSE,
-    bg = bg,
-    col = col,
-    lwd = lwd,
-    xlab = NA,
-    ylab = NA,
+  graphics::legend(
+    x = x,
+    y = y,
+    legend = legend,
+    bty = bty,
+    horiz = horiz,
+    xpd = xpd,
+    inset = inset,
     ...
-  )
-  axis(1, lty = missing(nx) + 0, lwd = 2, line = 0, gap.axis = 0)
-  axis(4, lty = 0, lwd = 2, line = 0)
-  grid(nx, ny, col = par("fg"), lty = grid.lty, lwd = grid.lwd)
-
-  title(main = main, cex.main = 1.5, adj = 0, font = 1, line = 3.5)
-  mtext(xlab, side = 1, line = 0.5, cex = 1, adj = 1.125, font = 2)
-  mtext(ylab, side = 3, line = 0, cex = 1, adj = 0, font = 1)
-  mtext(
-    sub,
-    side = 3,
-    line = 2,
-    cex = 1.25,
-    adj = 0,
-    col = adjustcolor(13, alpha = .5)
   )
 }
 
-#' List of graphical parameters for Bootstrap branded plots
+
+#' Bootstrap-branded axes and labels for base R graphics
 #'
-#' Sets graphical device parameters per branding guidelines. Uses `_brand.yml` configuration when provided explicitely via `brand()`, or else this package's built-in brand.
+#' Shorthand function to apply Bootstrap brand to base R plot axes and labels. Many tips derived from [r-charts.com](https://r-charts.com/base-r/margins/), since base R graphic documentation is often lacking.
 #'
+#' This function has no side effect and does not modify the current device, but it does require at minimum to specifiy `par(mar = c(2, 2, 7, 3))` to provide margin space for all plot labels.
+#'
+#' @param side position of axes, up to 4 (1-bottom, 2-left, 3-top, 4-right)
+#' @param at length-2 list of x/y points at which tickmarks are to be drawn, default `list(x=NA, y=NA)`
+#' @param axes.lty length-2 type of axis line (depends on `nx` value, c(0,1) if vertical gridlines are drawn) but can be modified here
+#' @param gap.axis length-2 minimal gap between axis labels
+#' @param grid.col gridline color
+#' @param grid.lty gridline type
+#' @param grid.lwd gridline width
+#'
+#' @inheritParams graphics::title
+#' @inheritParams graphics::axis
+#' @inheritParams graphics::grid
+#' @importFrom stringi stri_flatten
+#'
+#' @returns Branded axis and grid for base R plots
+#' @examples
+#' set.seed(1)
+#' x <- runif(100, min = -5, max = 5)
+#' y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
+#'
+#' opar <- par(par.brand())
+#'
+#' plot.brand(x, y)
+#' axes(nx=NULL, col.sub="red",
+#'   main="My Bootstrap Branded Plot", sub="Subtitle",
+#'   xlab="X Units", ylab="Y Units")
+#' abline(h=0, col="red", lwd=2)
+#'
+#' plot.brand(x, type="h", col=c("red", "green")[(x > 0) + 1])
+#' axes(main="My Bootstrap Branded Plot", sub="Histogram",
+#'   xlab="X units", ylab="Y units")
+#' legend.brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
+#'
+#' hist(x, col=pal.brand())
+#' axes(c(1,4),
+#'   main="My Bootstrap Branded Plot",
+#'   sub="Histogram, dummy legend", ylab="Frequency", lty=1)
+#' legend.brand(paste("cat", 1:3), fill=pal.brand(1:3), lty=0)
+#'
+#' # Restore
+#' par(opar)
+#'
+#' @export
+axes <- function(
+  side = getOption("axes.side"),
+  at = list(x = NULL, y = NULL),
+  axes.lty = NULL,
+  gap.axis = c(NA, NA),
+  line = c(0, 0),
+  main = NA,
+  sub = NA,
+  xlab = NA,
+  ylab = NA,
+  nx = NA,
+  ny = NULL,
+  grid.col = par("col"), # par() does not provide these specifically
+  grid.lty = "dotted",
+  grid.lwd = par("lwd")
+) {
+  side = match.arg(
+    as.character(side),
+    choices = as.character(0:4),
+    several.ok = TRUE
+  )
+
+  # Override local par()
+  opar = par(ann = TRUE, xaxt = "s", yaxt = "s", no.readonly = TRUE)
+  on.exit(par(opar))
+
+  # Axis line type logic
+  axes.lty = if (missing(axes.lty)) c(missing(nx), 0) else axes.lty
+  axes.lty = if (length(axes.lty) == 1) rep(axes.lty, 2) else axes.lty
+
+  if (1 %in% side) {
+    axis(1, lty = axes.lty[1], line = line[1], at = at[["x"]], gap.axis = gap.axis[1])
+  }
+  if (2 %in% side) {
+    axis(2, lty = axes.lty[2], line = line[2], at = at[["y"]], gap.axis = gap.axis[2])
+  }
+  if (3 %in% side) {
+    axis(3, lty = axes.lty[1], line = line[1], at = at[["x"]], gap.axis = gap.axis[1])
+  }
+  if (4 %in% side) {
+    axis(4, lty = axes.lty[2], line = line[2], at = at[["y"]], gap.axis = gap.axis[2])
+  }
+
+  # Gridlines
+  grid(nx = nx, ny = ny, col = grid.col, lty = grid.lty, lwd = grid.lwd)
+
+  # Main
+  title(main = main, line = 5.5, adj = 0, col.main = par("fg"))
+
+  # Sub
+  mtext(
+    sub,
+    side = 3,
+    line = 4,
+    adj = 0,
+    cex = par("cex.sub"),
+    font = par("font.sub"),
+    col = par("col.sub")
+  )
+
+  # Axis labels
+  mtext(
+    stri_flatten(
+      c(ylab, xlab),
+      collapse = if (is.na(xlab) || is.na(ylab)) "" else " / ",
+      na_empty = NA
+    ),
+    side = c(1, 3)[(1 %in% side) + 1],
+    line = 0.25,
+    adj = (2 %in% side) + 0,
+    cex = par("cex.lab"),
+    font = par("font.lab"),
+    col = par("col.lab")
+  )
+}
+
+
+#' Set or query graphical parameters for Bootstrap branded plots
+#'
+#' Opinionated mods to base R plots compatible with new `_brand.yml` feature. Does not load any brand by itself, explicitely call [brand_on()] if needed instead.
+#'
+#' @param fg Bootstrap color **name** for text and line elements, or color code
+#' @param bg Bootstrap color **name** for plot, panel background, or color code
+#' @param family one of `_brand.yml` font families (currently only `base`, `monospace`, or `headings`), else a valid System or Google font family name
 #' @inheritParams graphics::par
 #' @inheritDotParams graphics::par
-#' @returns a modified par() list
+#' @returns a list of graphical parameters
 #' @examples
-#' opar <- par(par.labs())
+#' opar <- par(par.brand())
 #' par()
 #' # Restore device to default state
 #' par(opar)
 #'
 #' @export
-par.labs <- function(...) {
+par.brand <- function(fg = NULL, bg = NULL, family = NULL, ...) {
+  # Load brand locally only
   b = .globals$brand
-  b = if (is.null(b)) brand() else b
+  b = if (is.null(b)) suppressMessages(brand()) else b
+  p = unlist(b$color$palette)
 
-  fg = b$color$palette[[b$color[["foreground"]]]][[1]]
-  family = b$font[[1]]
+  # Provide package defaults
+  bg = if (missing(bg)) p[b$color$background] else bg
+  fg = if (missing(fg)) p[b$color$foreground] else fg
+  family = if (missing(family)) b$font[[1]] else family
 
-  list(
+  # Check for Bootstrap names
+  bg = if (bg %in% names(p)) p[bg] else bg
+  fg = if (fg %in% names(p)) p[fg] else fg
+  family = if (family %in% names(b$typography)) b$typography[[family]] else family
+
+  bg = unname(bg)
+  fg = unname(fg)
+
+  # Get font, if not found assume Google font
+  if (!is.null(family) && !family %in% font_families()) {
+    font_add_google(family)
+    showtext_auto()
+  }
+
+  p = list(
     bty = "n",
-    cex.axis = 1.25,
-    col = fg,
-    family = family,
-    fg = fg,
-    font.main = 1,
-    font.sub = 1,
-    las = 1,
-    mar = c(4, 2, 5, 5),
+    mar = c(2.1, 2.1, 7.1, 3.1),
     mgp = c(1, 0.5, 0),
     pty = "m",
+
+    fg = fg,
+    bg = bg,
+    col = fg,
+    family = family,
+    cex.main = 1.5, # seems device and dpi dependent
+    cex.sub = 1.15,
+    cex.axis = 1,
+    cex.lab = 1,
+    font.main = 1,
+    font.sub = 1,
+    font.lab = 3,
+    col.main = fg, # hide defaut labels
+    col.sub = adjustcolor(fg, alpha = .5),
+    col.lab = fg,
+    las = 1,
     tck = 0.025,
+
+    ann = FALSE,
+    xaxt = "n",
+    yaxt = "n",
     ...
   )
+
+  # Skip NULL elements
+  p[sapply(p, length) > 0]
 }

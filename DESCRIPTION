@@ -1,6 +1,6 @@
-Package: mblabs
+Package: mbutils
 Title: Mel's utilities for data science projects and web publishing
-Version: 0.1.1
+Version: 1.0.0
 Authors@R: c(
 	person("Melanie", "Bacou", role="cre", email="mel@mbacou.com", comment=c(ORCID="0000-0003-1810-6818"))
 	)
@@ -9,19 +9,18 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: R (>= 4.1.2)
 Imports: 
-    data.table,
-    ggplot2,
     lubridate,
     htmltools,
     stringr,
+    stringi,
     scales,
     sysfonts,
-    thematic,
+    showtext,
     yaml
-Suggests: here, knitr, usethis
+Suggests: here, knitr, usethis, ggplot2, thematic
 SystemRequirements: gdal, geos
-URL: https://github.com/mbacou/mblabs/, https://github.mbacou.io/mblabs
-BugReports: https://github.com/mbacou/mblabs/issues/
+URL: https://github.com/mbacou/mbutils/, https://github.mbacou.io/mbutils
+BugReports: https://github.com/mbacou/mbutils/issues/
 VignetteBuilder: knitr
 RoxygenNote: 7.3.2
 Roxygen: list(markdown=TRUE)

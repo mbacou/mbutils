@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Mel's Labs R utilities • mblabs</title>
+<title>Mel's Labs R utilities • mbutils</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -19,7 +19,7 @@
 <meta property="og:title" content="Mel's Labs R utilities">
 <meta name="description" content="Handy tools, theming utilities, and graphical customizations for R and Quarto notebooks">
 <meta property="og:description" content="Handy tools, theming utilities, and graphical customizations for R and Quarto notebooks">
-<meta property="og:image" content="https://github.mbacou.io/mblabs/logo.png">
+<meta property="og:image" content="https://github.mbacou.io/mbutils/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -27,9 +27,9 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-secondary" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="index.html">mblabs</a>
+    <a class="navbar-brand me-2" href="index.html">mbutils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
 <li class="nav-item"><h6 class="dropdown-header" data-toc-skip>   </h6></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/mbacou/mblabs" aria-label="Github repo"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/mbacou/mbutils" aria-label="Github repo"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://linkedin.com/in/mbacou" aria-label="Linkedin"><span class="fa fab fa-linkedin fa-lg"></span></a></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://youtube.com/@mbacou" aria-label="YouTube"><span class="fa fab fa-youtube fa-lg"></span></a></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://t.me/mbacou" aria-label="Telegram"><span class="fa fab fa-telegram fa-lg"></span></a></li>
@@ -59,36 +59,37 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="mblabs">mblabs<a class="anchor" aria-label="anchor" href="#mblabs"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="mbutils">mbutils<a class="anchor" aria-label="anchor" href="#mbutils"></a>
 </h1>
 </div>
 <p>R package with Mel’s utilities for data science projects and (Quarto) web publishing.</p>
-<p>In particular this package includes branding themes and color scales for <code>ggplot2</code>, building on the new <strong>Posit</strong> <a href="https://posit-dev.github.io/brand-yml/" class="external-link">brand.yml</a> flexible branding system (logos, primary colors, palettes, fonts, etc. can now be swapped across projects and clients using external YAML config files and standard Bootstrap Sass variables).</p>
+<p>In particular this package includes Boostrap themes and color scales for <strong>base R graphics</strong>, <strong>lattice</strong> and <strong>ggplot</strong>, implementing the (recent) <a href="https://posit-dev.github.io/brand-yml/" class="external-link">brand.yml</a> flexible branding system.</p>
+<p>This feature allows for logos, primary colors, color palettes, fonts, etc. to be specified and swapped across projects and clients using external YAML config files and well-known Bootstrap Sass variables. This package includes my custom themes and additional utilities to turn theme features on/off.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install this package from the development version on GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mbacou/mblabs"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mbacou/mbutils"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>For complete R package documentation and technical guides, see the <a href="https://mbacou.github.io/mblabs/" class="external-link">package vignette</a>.</p>
+<p>For complete R package documentation and technical guides, see the <a href="https://mbacou.github.io/mbutils/" class="external-link">package vignette</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h2>
 <p>This package is licensed under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.html" class="external-link">GNU General Public License</a> version 3 or later.</p>
-<p>Copyright 2021-2025 Melanie Bacou.</p>
+<p>Copyright 2021-2026 Melanie Bacou.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mbacou/mblabs/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/mbacou/mblabs/issues/" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/mbacou/mbutils/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/mbacou/mbutils/issues/" class="external-link">Report a bug</a></li>
 <li><a href="https://github.mbacou.io/mb-labs" class="external-link">Personal blog</a></li>
 </ul>
 </div>
@@ -105,7 +106,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing mblabs</a></li>
+<li><a href="authors.html#citation">Citing mbutils</a></li>
 </ul>
 </div>
 

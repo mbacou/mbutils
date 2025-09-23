@@ -1,4 +1,4 @@
-url: https://github.mbacou.io/mblabs
+url: https://github.mbacou.io/mbutils
 destination: docs
 
 template:
@@ -50,7 +50,7 @@ navbar:
       href: news/index.html
     github:
       icon: fab fa-github fa-lg
-      href: https://github.com/mbacou/mblabs
+      href: https://github.com/mbacou/mbutils
       aria-label: Github repo
     linkedin:
       icon: fab fa-linkedin fa-lg
@@ -70,27 +70,29 @@ navbar:
 reference:
 - title: Bootstrap branding
   desc: >
-    Utilities to control **branding** of R plots
+    Utilities to apply **branding** to R plots
   contents:
-  - contains("brand")
-  - -contains("scale")
-  - -contains("theme")
-  - pal
+  - brand_on
+  - brand_off
+  - brand
+  - pal.brand
+  - brand.colors
+  - thematic_brand
 
-- title: Modified base R plots
+- title: Branded base R plots
   desc: >
     Opinionated **plot** customizations
   contents:
-  - contains("plot")
+  - contains("axes")
   - contains("par")
 
-- title: New ggplot2 geoms and scales
+- title: Branded ggplot2 scales, axes and legend
   desc: >
     Opinionated **ggplot2** customizations
   contents:
   - contains("gg")
   - contains("scale")
-  - contains("theme")
+  - contains("them")
 
 - title: Utilities
   desc: >
