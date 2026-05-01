@@ -30,5 +30,5 @@ textual elements. By default the color ramp is 90\% transparent.
 scales::show_col(brand.colors()(6))
 scales::show_col(brand.colors(interpolate="spline")(12))
 scales::show_col(brand.colors(c("orange", "light"))(12))
-
+s
 }

@@ -4,7 +4,7 @@
 \alias{scale_brand_dc}
 \title{Discrete color scale with Bootstrap colors}
 \usage{
-scale_brand_dc(x = NULL, ...)
+scale_brand_dc(x, ...)
 }
 \arguments{
 \item{x}{Brand color name(s), skip to return the entire color palette}

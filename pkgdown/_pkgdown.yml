@@ -1,4 +1,4 @@
-url: https://github.mbacou.io/mbutils
+url: https://mbacou.github.io/mbutils
 destination: docs
 
 template:
@@ -6,6 +6,17 @@ template:
   image: man/figures/logo.png
   open-graph: true
   light-switch: false
+  bslib:
+    bg: "#f2f1f1"
+    fg: "#333333"
+    primary: "#5088C6"
+    secondary: "#ffffff"
+    border-color: "#e8e7e7"
+    code-bg: "transparent"
+    pre-bg: "#ffffff"
+    font-weight-bold: 500
+    line-height-base: 1.5
+    border-radius: .25rem
 
 development:
   mode: auto
@@ -72,6 +83,7 @@ reference:
   contents:
   - contains("axes")
   - contains("par")
+  - plot.brand
 
 - title: Branded ggplot2 scales, axes and legend
   desc: >

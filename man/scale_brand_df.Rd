@@ -4,7 +4,7 @@
 \alias{scale_brand_df}
 \title{Discrete fill scale with Bootstrap colors}
 \usage{
-scale_brand_df(x = NULL, ...)
+scale_brand_df(x, ...)
 }
 \arguments{
 \item{x}{Brand color name(s), skip to return the entire color palette}
