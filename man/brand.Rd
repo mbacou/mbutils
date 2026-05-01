@@ -15,12 +15,12 @@ brand(file = "_brand.yml", font = c("base", "monospace", "headings"))
 List of branding elements similar in structure to \verb{_brand.yml}
 }
 \description{
-Make this package compatible with \code{brand.yml} unified branding feature. Branding can be read from a configuration file provided at run-time, else it will use one of these package built-in themes.
+Make this package compatible with \code{brand.yml} unified branding features. Branding can be read from a configuration file provided at run-time, else it will use this package built-in theme.
 }
 \details{
 Refer to \href{https://posit-dev.github.io/brand-yml/}{brand.yml} documentation.
 
-Typically there is no need to call \code{brand()} directly. Instead use \code{\link[=brand_on]{brand_on()}} to load and apply branding elements to your active session.
+Typically there is no need to call \code{brand()} directly. Instead use \code{\link[=brand_on]{brand_on()}} to apply plot branding to your active session.
 
 TODO search more file locations
 }

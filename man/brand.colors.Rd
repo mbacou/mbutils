@@ -4,20 +4,18 @@
 \alias{brand.colors}
 \title{Bootstrap color ramp}
 \usage{
-brand.colors(n = NULL, colors = pal.brand(), alpha = 0.9, ...)
+brand.colors(x = NULL, omit = c("white", "black", "gray"), ...)
 }
 \arguments{
-\item{n}{number of colors to interpolate}
+\item{x}{Brand color name(s), skip to return the entire color palette}
 
-\item{colors}{colors to interpolate; must be a valid argument to
-    \code{\link[grDevices]{col2rgb}()}.}
-
-\item{alpha}{transparency \link{0,1}}
+\item{omit}{Brand colors to exclude from color ramp}
 
 \item{...}{
   Arguments passed on to \code{\link[grDevices:colorRamp]{grDevices::colorRampPalette}}
   \describe{
-    \item{\code{}}{}
+    \item{\code{colors}}{colors to interpolate; must be a valid argument to
+    \code{\link[grDevices]{col2rgb}()}.}
   }}
 }
 \value{
@@ -29,9 +27,8 @@ Qualitative color ramp derived from active branding. This ramp excludes Bootstra
 textual elements. By default the color ramp is 90\% transparent.
 }
 \examples{
-scales::show_col(brand.colors(alpha=1))
-scales::show_col(brand.colors(11, alpha=1, interpolate="spline"))
-scales::show_col(brand.colors(16))
-scales::show_col(brand.colors(4, alpha=.5))
+scales::show_col(brand.colors()(6))
+scales::show_col(brand.colors(interpolate="spline")(12))
+scales::show_col(brand.colors(c("orange", "light"))(12))
 
 }

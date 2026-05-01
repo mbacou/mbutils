@@ -10,7 +10,7 @@ brand_off()
 TRUE (invisibly)
 }
 \description{
-Restore R session to its origainl state, discarding all color, font and plot customizations.
+Restore R session to its original state, discarding all color, font and plot customizations.
 }
 \seealso{
 \code{\link[=brand_on]{brand_on()}}

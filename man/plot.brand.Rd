@@ -4,7 +4,12 @@
 \alias{plot.brand}
 \title{Wrapper for base plot()}
 \usage{
-\method{plot}{brand}(..., side = getOption("axes.side"), use.brand = getOption("use.brand"))
+\method{plot}{brand}(
+  ...,
+  frame.plot = FALSE,
+  side = getOption("axes.side"),
+  use.brand = getOption("use.brand")
+)
 }
 \arguments{
 \item{...}{
@@ -42,10 +47,10 @@
 \item{use.brand}{whether to use mofidied plot layout, default \code{TRUE}}
 }
 \description{
-Simply assign new default arguments to R base \code{plot} method. This function is exported but not meant to be called directly in most cases. Use \code{\link[=brand_on]{brand_on()}} instead to apply plot customizations.
+Simply assign new default arguments to base R \code{plot} method. This function is exported but not meant to be called directly in most cases. Use \code{\link[=brand_on]{brand_on()}} instead to apply plot customizations.
 }
 \details{
-Not that when package option \code{getOption(use.brand=FALSE)} then \code{plot.brand()} is entirely equivalent to \code{base::plot()}.
+Note that when package option \code{getOption(use.brand=FALSE)} then \code{plot.brand()} is entirely equivalent to \code{base::plot()}.
 }
 \examples{
 set.seed(1)
@@ -62,12 +67,10 @@ options(use.brand = TRUE)
 plot.brand(x, y, col=4,
   main="Bootstrap Branded Plot", sub="Scatter plot with moded axes")
 
-plot(x, y, type="h", col=(y>0)+4)
-axes(nx=NULL, col.sub=pal.brand("red"),
-  main="Bootstrap Branded Plot", sub="Subtitle",
-  xlab="X Units", ylab="Y Units")
+plot.brand(x, y, type="h", col=(y>0)+4, side=c(1,4), nx=NULL,
+  main="Bootstrap Branded Plot", sub="Histogram with dummy legend")
 abline(h=0, col=pal.brand("red"), lwd=2)
-legend(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+legend.brand(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
 
 }
 \seealso{

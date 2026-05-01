@@ -4,9 +4,11 @@
 \alias{scale_brand_dc}
 \title{Discrete color scale with Bootstrap colors}
 \usage{
-scale_brand_dc(...)
+scale_brand_dc(x = NULL, ...)
 }
 \arguments{
+\item{x}{Brand color name(s), skip to return the entire color palette}
+
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:discrete_scale]{ggplot2::discrete_scale}}
   \describe{
@@ -29,7 +31,20 @@ omitted.}
 as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
 }}
-    \item{\code{labels}}{One of:
+    \item{\code{minor_breaks}}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (none for discrete, one minor break
+between each major break for continuous)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.
+}}
+    \item{\code{labels}}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -69,6 +84,8 @@ every level in a legend, the layer should use \code{show.legend = TRUE}.}
 \code{\link[ggplot2:guides]{guides()}} for more information.}
     \item{\code{position}}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+    \item{\code{fallback.palette}}{Function to use when \code{palette = NULL} and the
+palette is not represented in the theme.}
     \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}

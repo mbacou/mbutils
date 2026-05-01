@@ -2,14 +2,15 @@
 #'
 #' Custom `ggplot2` discrete color scale to match active Bootstrap brand.
 #'
+#' @inheritParams brand.colors
 #' @inheritDotParams ggplot2::discrete_scale
 #'
 #' @importFrom ggplot2 discrete_scale
 #' @seealso scale_labs_df
 #' @return a color scale
 #' @export
-scale_brand_dc <- function(...) {
-  discrete_scale("color", palette = brand.colors, ...)
+scale_brand_dc <- function(x, ...) {
+  discrete_scale("color", palette = brand.colors(x), ...)
 }
 
 
@@ -17,14 +18,14 @@ scale_brand_dc <- function(...) {
 #'
 #' Custom `ggplot2` discrete fill color scale to match active Bootstrap brand.
 #'
+#' @inheritParams brand.colors
 #' @inheritDotParams ggplot2::discrete_scale
-#'
 #' @importFrom ggplot2 discrete_scale
 #' @seealso scale_labs_dc
 #' @return a fill scale
 #' @export
-scale_brand_df <- function(...) {
-  discrete_scale("fill", palette = brand.colors, ...)
+scale_brand_df <- function(x, ...) {
+  discrete_scale("fill", palette = brand.colors(x), ...)
 }
 
 
@@ -32,14 +33,14 @@ scale_brand_df <- function(...) {
 #'
 #' Custom `ggplot2` continuous color scale to match active Bootstrap brand.
 #'
-#' @inheritParams pal.brand
-#' @inheritDotParams ggplot2::scale_colour_gradientn
-#' @importFrom ggplot2 scale_colour_gradientn
+#' @inheritParams brand.colors
+#' @inheritDotParams ggplot2::continuous_scale
+#' @importFrom ggplot2 continuous_scale
 #' @seealso scale_labs_cf
 #' @return a color scale
 #' @export
 scale_brand_cc <- function(x = c("orange", "light", "green"), ...) {
-  scale_colour_gradientn(colours = pal.brand(x, FALSE), ...)
+  continuous_scale("color", palette = brand.colors(x), ...)
 }
 
 
@@ -47,14 +48,13 @@ scale_brand_cc <- function(x = c("orange", "light", "green"), ...) {
 #'
 #' Custom `ggplot2` continuous fill scale to match active Bootstrap brand.
 #'
-#' @inheritParams pal.brand
-#' @inheritDotParams ggplot2::scale_fill_gradientn
-#' @importFrom ggplot2 scale_fill_gradientn
+#' @inheritParams brand.colors
+#' @inheritDotParams ggplot2::continuous_scale
 #' @seealso scale_labs_cc
 #' @return a fill scale
 #' @export
 scale_brand_cf <- function(x = c("orange", "light", "green"), ...) {
-  scale_fill_gradientn(colours = pal.brand(x, FALSE), ...)
+  continuous_scale("fill", palette = brand.colors(x), ...)
 }
 
 
@@ -222,9 +222,9 @@ theme_brand <- function(
 
   base_bg = if (missing(base_bg)) p[b$color$background] else base_bg
   base_color = if (missing(base_color)) p[b$color$foreground] else base_color
-  base_family = if (missing(base_family)) b$font[[1]] else base_family
-  base_family = if (base_family %in% names(b$typography)) {
-    b$typography[[base_family]]
+  base_family = if (missing(base_family)) "base" else base_family
+  base_family = if (!is.null(b$typography[[base_family]])) {
+    b$typography[[base_family]]$family
   } else {
     base_family
   }

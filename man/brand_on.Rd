@@ -22,7 +22,7 @@ Calling \code{brand_on()} has a few side effects in that it modifies global \cod
 
 The base generic \code{plot()} function is not masked but axes are turned off by \code{par()} and need to be added to plots explicitely with \code{mbutils::axes()} (shorthand for plotting multiple axes at once) or \code{graphics::axis()}.
 
-Use in combination with \code{\link[=brand_off]{brand_off()}} to restore the user environment to its original state.
+Use in combination with \code{\link[=brand_off]{brand_off()}} to restore the environment to its original state.
 }
 \examples{
 brand_on(font="monospace")

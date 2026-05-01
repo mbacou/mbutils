@@ -14,7 +14,7 @@ set -e
 # Update package datasets
 R -e 'source("data-raw/data.R")'
 
-# Document and install
+# Document
 R -e 'devtools::document()'
 
 # Build package documentation

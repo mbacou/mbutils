@@ -40,7 +40,10 @@ options(use.brand = TRUE, axes.side = c(3, 4))
 #' scales::show_col(unlist(brand()$color$palette))
 #'
 #' @export
-brand <- function(file = "_brand.yml", font = c("base", "monospace", "headings")) {
+brand <- function(
+  file = "_brand.yml",
+  font = c("base", "monospace", "headings")
+) {
   file = if (missing(file)) "_brand.yml" else file
   font = match.arg(font)
 
@@ -61,7 +64,7 @@ brand <- function(file = "_brand.yml", font = c("base", "monospace", "headings")
     stop("Boostrap branding needs color and font definitions.")
   }
 
-  font = b$typography[[font]]
+  font = b$typography[[font]]$family
   # Get font if not found, assume Google font
   if (!font %in% font_families()) {
     font_add_google(font)
@@ -217,24 +220,19 @@ pal.brand <- function(x = NULL, named = TRUE) {
 #' **white**, **black**, **light** and **gray** colors, which are typically used for
 #' textual elements. By default the color ramp is 90% transparent.
 #'
-#' @param n number of colors to interpolate
-#' @param alpha transparency [0,1]
-#' @inheritParams grDevices::colorRampPalette
+#' @param x Brand color name(s), skip to return the entire color palette
+#' @param omit Brand colors to exclude from color ramp
 #' @inheritDotParams grDevices::colorRampPalette
-#' @importFrom grDevices adjustcolor
 #' @return vector of n interpolated colors
 #' @examples
-#' scales::show_col(brand.colors(alpha=1))
-#' scales::show_col(brand.colors(11, alpha=1, interpolate="spline"))
-#' scales::show_col(brand.colors(16))
-#' scales::show_col(brand.colors(4, alpha=.5))
-#'
+#' scales::show_col(brand.colors()(6))
+#' scales::show_col(brand.colors(interpolate="spline")(12))
+#' scales::show_col(brand.colors(c("orange", "light"))(12))
+#'s
 #' @export
-brand.colors <- function(n = NULL, colors = pal.brand(), alpha = .9, ...) {
-  omit = c("white", "black", "gray")
-  if (missing(n)) {
-    return(colors[!names(colors) %in% omit])
-  }
-  colors = colors[!names(colors) %in% omit]
-  adjustcolor(colorRampPalette(unname(colors), ...)(n), alpha.f = alpha)
+brand.colors <- function(x = NULL, omit = c("white", "black", "gray"), ...) {
+  x = if (missing(x)) names(pal.brand()) else x
+  x = setdiff(x, omit)
+  x = pal.brand(x)
+  colorRampPalette(unname(x), ...)
 }

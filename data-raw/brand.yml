@@ -38,8 +38,11 @@ typography:
       source: google
       weight: [400]
   
-  base: Roboto Condensed
-  headings: Marck Script
-  monospace: M PLUS Code Latin
+  base: 
+    family: Roboto Condensed
+  headings: 
+    family: Marck Script
+  monospace: 
+    family: M PLUS Code Latin
 
   

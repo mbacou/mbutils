@@ -6,10 +6,10 @@
 \usage{
 axes(
   side = getOption("axes.side"),
-  at = list(x = NA, y = NA),
+  at = list(x = NULL, y = NULL),
   axes.lty = NULL,
   gap.axis = c(NA, NA),
-  line = c(0.2, 0),
+  line = c(0, 0),
   main = NA,
   sub = NA,
   xlab = NA,
