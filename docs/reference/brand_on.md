@@ -57,11 +57,6 @@ to restore the environment to its original state.
 ``` r
 require(ggplot2)
 #> Loading required package: ggplot2
-#> 
-#> Attaching package: ‘ggplot2’
-#> The following object is masked from ‘mbutils:masks’:
-#> 
-#>     ggplot
 brand_on(font="monospace")
 #> No `_brand.yml` found in the working tree.
 #>       Loaded built-in `Mel B. Labs` theme instead.
@@ -109,7 +104,7 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
 
 brand_off()
 par("fg")
-#> [1] "#505050"
+#> [1] "black"
 
 # Back to default ggplot
 ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +

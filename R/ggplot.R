@@ -179,7 +179,6 @@ thematic_brand <- function(
 #' @importFrom ggthemes theme_foundation
 #' @importFrom stringr str_detect
 #' @importFrom sysfonts font_families font_add_google
-#' @importFrom showtext showtext_auto
 #' @examples
 #' require(ggplot2)
 #'
@@ -248,7 +247,6 @@ theme_brand <- function(
   # Get font if not found, assume Google font
   if (!is.null(base_family) && !base_family %in% font_families()) {
     font_add_google(base_family)
-    showtext_auto()
   }
 
   theme_foundation(base_size = base_size, base_family = base_family) +
