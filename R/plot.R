@@ -4,10 +4,10 @@
 #'
 #' Use `side = c(1,2)` etc. to control axis visibility. For more granular control over axis display use `side=0` and this package [axes()] or base R [axis()].
 #'
-#' @inheritParams graphics::plot
+#' @inheritParams graphics::plot.default
 #' @param side which ide(s) to plot axes (0 to supress all axes), default to `getOption("axes.side")` else `c(1, 2)` (left and bottom)
 #' @param main.line margin line to draw plot title and subtitle, used to adjust plot margins (default: 5.5)
-#' @inheritDotParams graphics::plot
+#' @inheritDotParams graphics::plot.default
 #' @seealso [axes()]
 #' @examples
 #' set.seed(1)
@@ -16,7 +16,7 @@
 #'
 #' # Standard plot
 #' plot_brand(x, y, col=4, side=1:2, main.line=2.5,
-#'   main="Custom Plot", sub="no legend")
+#'   main="Custom Plot", sub="no legend", axes=TRUE, ann=TRUE)
 #'
 #' # Standard plot
 #' plot_brand(x, y, col=4, side=0, main.line=2.5,
@@ -25,40 +25,45 @@
 #' # Branded defaults
 #' plot_brand(x, y, type="h", col=(y>0)+4, side=c(1,4), nx=NULL,
 #'   main="Custom Plot", sub="Histogram with top legend")
-#' abline(h=0, col=pal.brand("red"), lwd=2)
-#' legend_brand(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+#' abline(h=0, col=pal("red"), lwd=2)
+#' legend_brand(names(pal())[4:5], lty=1, lwd=2, col=4:5)
 #'
 #' @export
 plot_brand <- function(
   x,
-  ...,
   side = getOption("axes.side"),
   main = NA,
   sub = NA,
-  main.line = 5.5
+  main.line = 5.5,
+  axes = FALSE,
+  ann = axes,
+  ...
 ) {
   # Dispatch call arguments
   args = list(...)
   args2 = args[names(args) %in% names(formals("axes"))]
   args = args[!names(args) %in% names(formals("axes"))]
   args[["x"]] = x
-  args[["axes"]] = FALSE
+  args[["axes"]] = axes
+  args[["ann"]] = ann
   args2[["side"]] = side
 
   opar = par(
-    mar = par.brand()$mar + 2 * (1:4 %in% side) + c(0, 0, main.line, 0),
+    mar = par.brand()$mar + 3 * (1:4 %in% side) + c(0, 0, main.line, 0),
     mgp = par.brand()$mgp,
     bty = par.brand()$bty,
-    no.readonly = TRUE,
-    ann = FALSE
+    no.readonly = TRUE
   )
 
   # Always restore state
   on.exit(suppressWarnings(par(opar)))
 
   # Draw plot
-  do.call(base::plot, args)
-  do.call("axes", args2)
+  plot_fn <- get("plot.default", envir = as.environment("package:graphics"))
+  do.call(plot_fn, args)
+  if (!(axes)) {
+    do.call("axes", args2)
+  }
 
   # Main
   title(main = main, line = main.line, adj = 0, col.main = par("fg"))
@@ -92,7 +97,7 @@ legend_brand <- function(
   bty = "n",
   horiz = TRUE,
   xpd = TRUE,
-  inset = c(-0.05, -0.2),
+  inset = c(-0.05, -0.45),
   par = par.brand(),
   ...
 ) {
@@ -146,11 +151,11 @@ legend_brand <- function(
 #' axes(xlab="X units", ylab="Y units")
 #' legend_brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
 #'
-#' hist(x, col=pal.brand(), border=NA, axes=FALSE,
+#' hist(x, col=pal(), border=NA, axes=FALSE,
 #'   main="My Bootstrap Branded Plot", sub="Histogram, dummy legend",
 #'   xlab=NA, ylab=NA)
 #' axes(c(1,4), ylab="Frequency")
-#' legend_brand(paste("cat", 1:3), fill=pal.brand(1:3), lty=0)
+#' legend_brand(paste("cat", 1:3), fill=pal(1:3), lty=0)
 #'
 #' # Restore
 #' par(opar)
@@ -162,6 +167,8 @@ axes <- function(
   axes.lty = NULL,
   gap.axis = c(NA, NA),
   line = c(0, 0),
+  main = NA,
+  sub = NA,
   xlab = NA,
   ylab = NA,
   nx = NA,
@@ -179,11 +186,17 @@ axes <- function(
   )
 
   # Override local par()
-  opar = par(ann = TRUE, xaxt = "s", yaxt = "s", no.readonly = TRUE)
+  opar = par(
+    col.lab = par("fg"),
+    ann = TRUE,
+    xaxt = "s",
+    yaxt = "s",
+    no.readonly = TRUE
+  )
   on.exit(suppressWarnings(par(opar)))
 
   # Axis line type logic
-  axes.lty = if (missing(axes.lty)) c(missing(nx), 0) else axes.lty
+  axes.lty = if (missing(axes.lty)) c(1 * is.na(nx), 0) else axes.lty
   axes.lty = if (length(axes.lty) == 1) rep(axes.lty, 2) else axes.lty
 
   if (1 %in% side) {
@@ -215,6 +228,20 @@ axes <- function(
     cex = par("cex.lab"),
     font = par("font.lab"),
     col = par("col.lab")
+  )
+
+  # Main
+  title(main = main, line = 5, adj = 0, col.main = par("fg"))
+
+  # Sub
+  mtext(
+    sub,
+    side = 3,
+    line = 3.5,
+    adj = 0,
+    cex = par("cex.sub"),
+    font = par("font.sub"),
+    col = par("col.sub")
   )
 }
 
@@ -264,13 +291,12 @@ par.brand <- function(fg = NULL, bg = NULL, font = "base", ...) {
   }
   if (!is.null(font) && !font %in% font_families()) {
     font_add_google(font)
-    showtext_auto()
   }
 
   p = list(
     bty = "n",
-    mar = c(1.3, 1.3, 1.3, 1.3),
-    mgp = c(1, 0.5, 0),
+    mar = c(3.1, 2.1, 6.5, 3.1),
+    mgp = c(1, 0.5, 0), # axis title, labels, line spacing
     pty = "m",
 
     fg = fg,
@@ -286,11 +312,13 @@ par.brand <- function(fg = NULL, bg = NULL, font = "base", ...) {
     font.lab = 3,
     col.main = fg,
     col.sub = adjustcolor(fg, alpha = .5),
-    col.lab = fg,
+    col.lab = bg,
     las = 1,
     tck = 0.025,
 
     ann = FALSE,
+    xaxs = "r",
+    yaxs = "r",
     xaxt = "n",
     yaxt = "n",
     ...

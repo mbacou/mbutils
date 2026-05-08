@@ -2,7 +2,13 @@
 
 ## mbutils (development version)
 
-#### v2.3.0
+#### v2.5.0
+
+- [`brand_on()`](https://mbacou.github.io/mbutils/reference/brand_on.md)
+  no longer masks [`base::plot`](https://rdrr.io/r/base/plot.html), has
+  too many uncontrollable side-effects
+
+#### v2.3.0x
 
 - More flexible
   [`plot_brand()`](https://mbacou.github.io/mbutils/reference/plot_brand.md)

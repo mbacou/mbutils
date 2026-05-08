@@ -10,6 +10,8 @@ axes(
   axes.lty = NULL,
   gap.axis = c(NA, NA),
   line = c(0, 0),
+  main = NA,
+  sub = NA,
   xlab = NA,
   ylab = NA,
   nx = NA,
@@ -31,6 +33,12 @@ axes(
 \item{line}{specifying a value for \code{line} overrides the
     default placement of labels, and places them this many lines
     outwards from the plot edge.}
+
+\item{main}{The main title (on top) using font, size (character
+    expansion) and color \code{par(c("font.main", "cex.main", "col.main"))}.}
+
+\item{sub}{Sub-title (at bottom) using font, size and color 
+    \code{par(c("font.sub", "cex.sub", "col.sub"))}.}
 
 \item{xlab}{X axis label using font, size and color 
     \code{par(c("font.lab", "cex.lab", "col.lab"))}.}
@@ -75,11 +83,11 @@ plot(x, type="h", col=c("red", "green")[(x > 0) + 1], axes=FALSE,
 axes(xlab="X units", ylab="Y units")
 legend_brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
 
-hist(x, col=pal.brand(), border=NA, axes=FALSE,
+hist(x, col=pal(), border=NA, axes=FALSE,
   main="My Bootstrap Branded Plot", sub="Histogram, dummy legend",
   xlab=NA, ylab=NA)
 axes(c(1,4), ylab="Frequency")
-legend_brand(paste("cat", 1:3), fill=pal.brand(1:3), lty=0)
+legend_brand(paste("cat", 1:3), fill=pal(1:3), lty=0)
 
 # Restore
 par(opar)

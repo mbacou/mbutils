@@ -55,7 +55,8 @@ brand <- function(
     message(
       "No `",
       file,
-      "` config found in the working tree. Loaded built-in `",
+      "` found in the working tree.
+      Loaded built-in `",
       BRAND$meta$name,
       "` theme instead."
     )
@@ -94,28 +95,31 @@ brand <- function(
 #' @examples
 #' require(ggplot2)
 #' brand_on(font="monospace")
-#' scales::show_col(pal.brand())
+#' scales::show_col(pal())
 #'
 #' set.seed(1)
 #' x <- runif(100, min = -5, max = 5)
 #' y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 #'
-#' plot(x, y, col=4,
-#'  main="Bootstrap Branded Plot", sub="Scatter plot")
+#' plot(x, y, col=4)
+#' axes(main="Bootstrap Branded Plot", sub="Scatter plot")
 #'
-#' plot(x, y, type="h", col=(y>0)+4, nx=NULL,
+#' plot(x, y, type="h", col=(y>0)+4)
+#' axes(nx=NULL,
 #'   main="Bootstrap Branded Plot", sub="My Subtitle",
 #'   xlab="X Units", ylab="Y Units")
-#' abline(h=0, col=pal.brand("red"), lwd=2)
-#' legend(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+#' abline(h=0, col=pal("red"), lwd=2)
+#' legend(names(pal())[4:5], lty=1, lwd=2, col=4:5)
 #'
-#' plot(x, type="h", col=pal.brand(), side=c(1,4),
+#' plot(x, type="h", col=pal())
+#' axes(side=c(1,4),
 #'   main="My Bootstrap Branded Plot",
 #'   sub="Histogram, dummy legend", ylab="Frequency")
-#' legend(paste("cat", 1:3), fill=pal.brand(1:3))
+#' legend(paste("cat", 1:3), fill=pal(1:3))
 #'
 #' # Plot ecdf
-#' plot(ecdf(rnorm(10)),
+#' plot(ecdf(rnorm(10)))
+#' axes(
 #'   main="My Bootstrap Branded Plot",
 #'   sub="Histogram, dummy legend",
 #'   side=c(1,4), ylab="Frequency", nx=NULL)
@@ -129,9 +133,8 @@ brand <- function(
 #'
 #' brand_off()
 #' par("fg")
-#' par("bg")
 #'
-#' # BAck to default ggplot
+#' # Back to default ggplot
 #' ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
 #'   geom_col() +
 #'   labs(
@@ -160,7 +163,7 @@ brand_on <- function(...) {
   e <- new.env(parent = emptyenv())
 
   # Mask generic plot functions
-  e$plot = plot_brand
+  #e$plot.default = plot_brand
   e$legend = legend_brand
   e$ggplot = ggbrand
 
@@ -209,16 +212,17 @@ brand_off <- function() {
 #' Color palette extracted from the active Bootstrap theme. By default colors are read from an external `_brand.yml` configuration file (or uses this package built-in brand).
 #'
 #' @param x Color index or name(s), skip to return the entire color palette
+#' @param alpha transparency (default: 0.85)
 #' @param named keep color names (default: TRUE)
 #'
 #' @return A vector of (named) hex color codes extracted from Bootstrap branding
 #' @references [brand.yml](https://posit-dev.github.io/brand-yml/)
 #' @examples
-#' scales::show_col(pal.brand())
-#' scales::show_col(pal.brand(c("orange", "red")))
+#' scales::show_col(pal())
+#' scales::show_col(pal(c("orange", "red")))
 #'
 #' @export
-pal.brand <- function(x = NULL, named = TRUE) {
+pal <- function(x = NULL, alpha = .85, named = TRUE) {
   b = if (.globals %in% search()) {
     # Search the environment
     as.environment(.globals)$brand
@@ -228,8 +232,12 @@ pal.brand <- function(x = NULL, named = TRUE) {
   }
 
   p = if (missing(x)) b$color$palette else b$color$palette[x]
-  p = if (named) p else unname(p)
-  unlist(p)
+  n = names(p)
+  p = adjustcolor(unlist(p), alpha.f = alpha)
+  if (named) {
+    names(p) = n
+  }
+  return(p)
 }
 
 
@@ -250,8 +258,8 @@ pal.brand <- function(x = NULL, named = TRUE) {
 #'s
 #' @export
 brand.colors <- function(x = NULL, omit = c("white", "black", "gray"), ...) {
-  x = if (missing(x)) names(pal.brand()) else x
+  x = if (missing(x)) names(pal()) else x
   x = setdiff(x, omit)
-  x = pal.brand(x)
+  x = pal(x)
   colorRampPalette(unname(x), ...)
 }

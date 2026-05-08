@@ -9,10 +9,10 @@ theme_brand(
   base_color = NULL,
   base_bg = NULL,
   base_family = "base",
-  base_size = 12,
+  base_size = 14,
   grid = c("Y", "X", "XY", "n"),
   legend = c("top", "bottom", "right", "left"),
-  gradient = c("blue", "orange", "red"),
+  gradient = c("orange", "light", "green"),
   ...
 )
 ```

@@ -28,28 +28,31 @@ Use in combination with \code{\link[=brand_off]{brand_off()}} to restore the env
 \examples{
 require(ggplot2)
 brand_on(font="monospace")
-scales::show_col(pal.brand())
+scales::show_col(pal())
 
 set.seed(1)
 x <- runif(100, min = -5, max = 5)
 y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
-plot(x, y, col=4,
- main="Bootstrap Branded Plot", sub="Scatter plot")
+plot(x, y, col=4)
+axes(main="Bootstrap Branded Plot", sub="Scatter plot")
 
-plot(x, y, type="h", col=(y>0)+4, nx=NULL,
+plot(x, y, type="h", col=(y>0)+4)
+axes(nx=NULL,
   main="Bootstrap Branded Plot", sub="My Subtitle",
   xlab="X Units", ylab="Y Units")
-abline(h=0, col=pal.brand("red"), lwd=2)
-legend(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+abline(h=0, col=pal("red"), lwd=2)
+legend(names(pal())[4:5], lty=1, lwd=2, col=4:5)
 
-plot(x, type="h", col=pal.brand(), side=c(1,4),
+plot(x, type="h", col=pal())
+axes(side=c(1,4),
   main="My Bootstrap Branded Plot",
   sub="Histogram, dummy legend", ylab="Frequency")
-legend(paste("cat", 1:3), fill=pal.brand(1:3))
+legend(paste("cat", 1:3), fill=pal(1:3))
 
 # Plot ecdf
-plot(ecdf(rnorm(10)),
+plot(ecdf(rnorm(10)))
+axes(
   main="My Bootstrap Branded Plot",
   sub="Histogram, dummy legend",
   side=c(1,4), ylab="Frequency", nx=NULL)
@@ -63,9 +66,8 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
 
 brand_off()
 par("fg")
-par("bg")
 
-# BAck to default ggplot
+# Back to default ggplot
 ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
   geom_col() +
   labs(

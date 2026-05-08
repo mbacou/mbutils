@@ -7,7 +7,7 @@ uses this package built-in brand).
 ## Usage
 
 ``` r
-pal.brand(x = NULL, named = TRUE)
+pal(x = NULL, alpha = 0.85, named = TRUE)
 ```
 
 ## Arguments
@@ -15,6 +15,10 @@ pal.brand(x = NULL, named = TRUE)
 - x:
 
   Color index or name(s), skip to return the entire color palette
+
+- alpha:
+
+  transparency (default: 0.85)
 
 - named:
 
@@ -31,8 +35,8 @@ A vector of (named) hex color codes extracted from Bootstrap branding
 ## Examples
 
 ``` r
-scales::show_col(pal.brand())
+scales::show_col(pal())
 
-scales::show_col(pal.brand(c("orange", "red")))
+scales::show_col(pal(c("orange", "red")))
 
 ```

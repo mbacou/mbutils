@@ -214,7 +214,7 @@ theme_brand <- function(
   base_color = NULL,
   base_bg = NULL,
   base_family = "base",
-  base_size = 12,
+  base_size = 14,
   grid = c("Y", "X", "XY", "n"),
   legend = c("top", "bottom", "right", "left"),
   gradient = c("orange", "light", "green"),
@@ -322,10 +322,10 @@ theme_brand <- function(
       legend.justification = 0,
 
       # Apply scales
-      palette.colour.discrete = pal.brand(named = FALSE),
-      palette.fill.discrete = pal.brand(named = FALSE),
-      palette.colour.continuous = pal.brand(gradient, named = FALSE),
-      palette.fill.continuous = pal.brand(gradient, named = FALSE)
+      palette.colour.discrete = pal(named = FALSE),
+      palette.fill.discrete = pal(named = FALSE),
+      palette.colour.continuous = pal(gradient, named = FALSE),
+      palette.fill.continuous = pal(gradient, named = FALSE)
     ) +
     theme(...)
 }
@@ -361,7 +361,7 @@ theme_brand <- function(
 #'   theme_brand(grid="XY")
 #'
 #' ggbrand(mtcars, aes(wt, mpg, color=carb), axes="topright") +
-#'   geom_smooth(color=pal.brand("red"), fill=pal.brand("pink")) +
+#'   geom_smooth(color=pal("red"), fill=pal("pink")) +
 #'   geom_point(size=3) +
 #'   guides(color=guide_legend(nrow=1)) +
 #'   labs(

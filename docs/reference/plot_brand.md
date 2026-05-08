@@ -11,20 +11,52 @@ to apply complete plot customizations (fonts and colors) using
 ``` r
 plot_brand(
   x,
-  ...,
   side = getOption("axes.side"),
   main = NA,
   sub = NA,
-  main.line = 5.5
+  main.line = 5.5,
+  axes = FALSE,
+  ann = axes,
+  ...
 )
 ```
 
 ## Arguments
 
+- side:
+
+  which ide(s) to plot axes (0 to supress all axes), default to
+  `getOption("axes.side")` else `c(1, 2)` (left and bottom)
+
+- main:
+
+  a main title for the plot, see also
+  [`title`](https://rdrr.io/r/graphics/title.html).
+
+- sub:
+
+  a subtitle for the plot.
+
+- main.line:
+
+  margin line to draw plot title and subtitle, used to adjust plot
+  margins (default: 5.5)
+
+- axes:
+
+  a logical value indicating whether both axes should be drawn on the
+  plot. Use [graphical parameter](https://rdrr.io/r/graphics/par.html)
+  `"xaxt"` or `"yaxt"` to suppress just one of the axes.
+
+- ann:
+
+  a logical value indicating whether the default annotation (title and x
+  and y axis labels) should appear on the plot.
+
 - ...:
 
   Arguments passed on to
-  [`graphics::plot`](https://rdrr.io/r/graphics/plot.default.html)
+  [`graphics::plot.default`](https://rdrr.io/r/graphics/plot.default.html)
 
   `x,y`
 
@@ -80,18 +112,6 @@ plot_brand(
 
   :   a label for the y axis, defaults to a description of `y`.
 
-  `ann`
-
-  :   a logical value indicating whether the default annotation (title
-      and x and y axis labels) should appear on the plot.
-
-  `axes`
-
-  :   a logical value indicating whether both axes should be drawn on
-      the plot. Use [graphical
-      parameter](https://rdrr.io/r/graphics/par.html) `"xaxt"` or
-      `"yaxt"` to suppress just one of the axes.
-
   `frame.plot`
 
   :   a logical indicating whether a box should be drawn around the
@@ -122,25 +142,6 @@ plot_brand(
       [`axis()`](https://rdrr.io/r/graphics/axis.html) calls (when
       `axes` is true, as per default).
 
-- side:
-
-  which ide(s) to plot axes (0 to supress all axes), default to
-  `getOption("axes.side")` else `c(1, 2)` (left and bottom)
-
-- main:
-
-  a main title for the plot, see also
-  [`title`](https://rdrr.io/r/graphics/title.html).
-
-- sub:
-
-  a subtitle for the plot.
-
-- main.line:
-
-  margin line to draw plot title and subtitle, used to adjust plot
-  margins (default: 5.5)
-
 ## Details
 
 Use `side = c(1,2)` etc. to control axis visibility. For more granular
@@ -161,19 +162,21 @@ y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
 # Standard plot
 plot_brand(x, y, col=4, side=1:2, main.line=2.5,
-  main="Custom Plot", sub="no legend")
+  main="Custom Plot", sub="no legend", axes=TRUE, ann=TRUE)
 
 
 # Standard plot
 plot_brand(x, y, col=4, side=0, main.line=2.5,
   main="Custom Plot", sub="no axis")
-
+#> Error in if (axes) {    localAxis(if (is.null(y))         xy$x    else x, side = 1, gap.axis = xgap.axis, ...)    localAxis(if (is.null(y))         x    else y, side = 2, gap.axis = ygap.axis, ...)}: the condition has length > 1
 
 # Branded defaults
 plot_brand(x, y, type="h", col=(y>0)+4, side=c(1,4), nx=NULL,
   main="Custom Plot", sub="Histogram with top legend")
-abline(h=0, col=pal.brand("red"), lwd=2)
+#> Warning: longer object length is not a multiple of shorter object length
+#> Error in par(mar = par.brand()$mar + 3 * (1:4 %in% side) + c(0, 0, main.line,     0), mgp = par.brand()$mgp, bty = par.brand()$bty, no.readonly = TRUE): graphical parameter "mar" has the wrong length
+abline(h=0, col=pal("red"), lwd=2)
 
-legend_brand(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
-#> Error in legend_brand(names(pal.brand())[4:5], lty = 1, lwd = 2, col = 4:5): could not find function "legend_brand"
+legend_brand(names(pal())[4:5], lty=1, lwd=2, col=4:5)
+#> Error in legend_brand(names(pal())[4:5], lty = 1, lwd = 2, col = 4:5): could not find function "legend_brand"
 ```

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mbutils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,11 +45,13 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_brand</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  <span class="va">...</span>,</span>
 <span>  side <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"axes.side"</span><span class="op">)</span>,</span>
 <span>  main <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  sub <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  main.line <span class="op">=</span> <span class="fl">5.5</span></span>
+<span>  main.line <span class="op">=</span> <span class="fl">5.5</span>,</span>
+<span>  axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ann <span class="op">=</span> <span class="va">axes</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -57,8 +59,35 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Arguments passed on to <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot</a></code></p><dl><dt><code>x,y</code></dt>
+<dl><dt id="arg-side">side<a class="anchor" aria-label="anchor" href="#arg-side"></a></dt>
+<dd><p>which ide(s) to plot axes (0 to supress all axes), default to <code>getOption("axes.side")</code> else <code>c(1, 2)</code> (left and bottom)</p></dd>
+
+
+<dt id="arg-main">main<a class="anchor" aria-label="anchor" href="#arg-main"></a></dt>
+<dd><p>a main title for the plot, see also <code><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></code>.</p></dd>
+
+
+<dt id="arg-sub">sub<a class="anchor" aria-label="anchor" href="#arg-sub"></a></dt>
+<dd><p>a subtitle for the plot.</p></dd>
+
+
+<dt id="arg-main-line">main.line<a class="anchor" aria-label="anchor" href="#arg-main-line"></a></dt>
+<dd><p>margin line to draw plot title and subtitle, used to adjust plot margins (default: 5.5)</p></dd>
+
+
+<dt id="arg-axes">axes<a class="anchor" aria-label="anchor" href="#arg-axes"></a></dt>
+<dd><p>a logical value indicating whether both axes should be drawn on
+    the plot.  Use <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameter</a> <code>"xaxt"</code> or <code>"yaxt"</code>
+    to suppress just one of the axes.</p></dd>
+
+
+<dt id="arg-ann">ann<a class="anchor" aria-label="anchor" href="#arg-ann"></a></dt>
+<dd><p>a logical value indicating whether the default annotation
+    (title and x and y axis labels) should appear on the plot.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Arguments passed on to <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot.default</a></code></p><dl><dt><code>x,y</code></dt>
 <dd><p>the <code>x</code> and <code>y</code> arguments provide the x and y
     coordinates for the plot.  Any reasonable way of defining the
     coordinates is acceptable.  See the function <code><a href="https://rdrr.io/r/grDevices/xy.coords.html" class="external-link">xy.coords</a></code>
@@ -103,15 +132,6 @@
     <dt><code>ylab</code></dt>
 <dd><p>a label for the y axis, defaults to a description of <code>y</code>.</p></dd>
 
-    <dt><code>ann</code></dt>
-<dd><p>a logical value indicating whether the default annotation
-    (title and x and y axis labels) should appear on the plot.</p></dd>
-
-    <dt><code>axes</code></dt>
-<dd><p>a logical value indicating whether both axes should be drawn on
-    the plot.  Use <a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphical parameter</a> <code>"xaxt"</code> or <code>"yaxt"</code>
-    to suppress just one of the axes.</p></dd>
-
     <dt><code>frame.plot</code></dt>
 <dd><p>a logical indicating whether a box should be drawn
     around the plot.</p></dd>
@@ -140,22 +160,6 @@
 
 </dl></dd>
 
-
-<dt id="arg-side">side<a class="anchor" aria-label="anchor" href="#arg-side"></a></dt>
-<dd><p>which ide(s) to plot axes (0 to supress all axes), default to <code>getOption("axes.side")</code> else <code>c(1, 2)</code> (left and bottom)</p></dd>
-
-
-<dt id="arg-main">main<a class="anchor" aria-label="anchor" href="#arg-main"></a></dt>
-<dd><p>a main title for the plot, see also <code><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></code>.</p></dd>
-
-
-<dt id="arg-sub">sub<a class="anchor" aria-label="anchor" href="#arg-sub"></a></dt>
-<dd><p>a subtitle for the plot.</p></dd>
-
-
-<dt id="arg-main-line">main.line<a class="anchor" aria-label="anchor" href="#arg-main-line"></a></dt>
-<dd><p>margin line to draw plot title and subtitle, used to adjust plot margins (default: 5.5)</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -174,21 +178,23 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Standard plot</span></span></span>
 <span class="r-in"><span><span class="fu">plot_brand</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, col<span class="op">=</span><span class="fl">4</span>, side<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, main.line<span class="op">=</span><span class="fl">2.5</span>,</span></span>
-<span class="r-in"><span>  main<span class="op">=</span><span class="st">"Custom Plot"</span>, sub<span class="op">=</span><span class="st">"no legend"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  main<span class="op">=</span><span class="st">"Custom Plot"</span>, sub<span class="op">=</span><span class="st">"no legend"</span>, axes<span class="op">=</span><span class="cn">TRUE</span>, ann<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_brand-1.png" alt="" width="875" height="541"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Standard plot</span></span></span>
 <span class="r-in"><span><span class="fu">plot_brand</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, col<span class="op">=</span><span class="fl">4</span>, side<span class="op">=</span><span class="fl">0</span>, main.line<span class="op">=</span><span class="fl">2.5</span>,</span></span>
 <span class="r-in"><span>  main<span class="op">=</span><span class="st">"Custom Plot"</span>, sub<span class="op">=</span><span class="st">"no axis"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot_brand-2.png" alt="" width="875" height="541"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in if (axes) {    localAxis(if (is.null(y))         xy$x    else x, side = 1, gap.axis = xgap.axis, ...)    localAxis(if (is.null(y))         x    else y, side = 2, gap.axis = ygap.axis, ...)}:</span> the condition has length &gt; 1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Branded defaults</span></span></span>
 <span class="r-in"><span><span class="fu">plot_brand</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type<span class="op">=</span><span class="st">"h"</span>, col<span class="op">=</span><span class="op">(</span><span class="va">y</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span><span class="op">+</span><span class="fl">4</span>, side<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span>, nx<span class="op">=</span><span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>  main<span class="op">=</span><span class="st">"Custom Plot"</span>, sub<span class="op">=</span><span class="st">"Histogram with top legend"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span>, col<span class="op">=</span><span class="fu"><a href="pal.brand.html">pal.brand</a></span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot_brand-3.png" alt="" width="875" height="541"></span>
-<span class="r-in"><span><span class="fu"><a href="legend_brand.html">legend_brand</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="pal.brand.html">pal.brand</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, lty<span class="op">=</span><span class="fl">1</span>, lwd<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in legend_brand(names(pal.brand())[4:5], lty = 1, lwd = 2, col = 4:5):</span> could not find function "legend_brand"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>longer object length is not a multiple of shorter object length</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in par(mar = par.brand()$mar + 3 * (1:4 %in% side) + c(0, 0, main.line,     0), mgp = par.brand()$mgp, bty = par.brand()$bty, no.readonly = TRUE):</span> graphical parameter "mar" has the wrong length</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span>, col<span class="op">=</span><span class="fu"><a href="pal.html">pal</a></span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_brand-2.png" alt="" width="875" height="541"></span>
+<span class="r-in"><span><span class="fu"><a href="legend_brand.html">legend_brand</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="pal.html">pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, lty<span class="op">=</span><span class="fl">1</span>, lwd<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in legend_brand(names(pal())[4:5], lty = 1, lwd = 2, col = 4:5):</span> could not find function "legend_brand"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -1,6 +1,10 @@
 # mbutils (development version)
 
-### v2.3.0
+### v2.5.0
+
+* `brand_on()` no longer masks `base::plot`, has too many uncontrollable side-effects
+
+### v2.3.0x
 
 * More flexible `plot_brand()` implementation
 

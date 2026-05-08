@@ -14,6 +14,8 @@ axes(
   axes.lty = NULL,
   gap.axis = c(NA, NA),
   line = c(0, 0),
+  main = NA,
+  sub = NA,
   xlab = NA,
   ylab = NA,
   nx = NA,
@@ -48,6 +50,16 @@ axes(
 
   specifying a value for `line` overrides the default placement of
   labels, and places them this many lines outwards from the plot edge.
+
+- main:
+
+  The main title (on top) using font, size (character expansion) and
+  color `par(c("font.main", "cex.main", "col.main"))`.
+
+- sub:
+
+  Sub-title (at bottom) using font, size and color
+  `par(c("font.sub", "cex.sub", "col.sub"))`.
 
 - xlab:
 
@@ -111,13 +123,13 @@ axes(xlab="X units", ylab="Y units")
 legend_brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
 #> Error in legend_brand(c("Red", "Green"), lty = 1, lwd = 2, col = c("red",     "green")): could not find function "legend_brand"
 
-hist(x, col=pal.brand(), border=NA, axes=FALSE,
+hist(x, col=pal(), border=NA, axes=FALSE,
   main="My Bootstrap Branded Plot", sub="Histogram, dummy legend",
   xlab=NA, ylab=NA)
 axes(c(1,4), ylab="Frequency")
 
-legend_brand(paste("cat", 1:3), fill=pal.brand(1:3), lty=0)
-#> Error in legend_brand(paste("cat", 1:3), fill = pal.brand(1:3), lty = 0): could not find function "legend_brand"
+legend_brand(paste("cat", 1:3), fill=pal(1:3), lty=0)
+#> Error in legend_brand(paste("cat", 1:3), fill = pal(1:3), lty = 0): could not find function "legend_brand"
 
 # Restore
 par(opar)

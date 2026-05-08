@@ -10,8 +10,8 @@ Utilities to apply **branding** to R plots
   : Turn Bootstrap brand off
 - [`brand()`](https://mbacou.github.io/mbutils/reference/brand.md) :
   Fetch Bootstrap branding
-- [`pal.brand()`](https://mbacou.github.io/mbutils/reference/pal.brand.md)
-  : Bootstrap color palette
+- [`pal()`](https://mbacou.github.io/mbutils/reference/pal.md) :
+  Bootstrap color palette
 - [`brand.colors()`](https://mbacou.github.io/mbutils/reference/brand.colors.md)
   : Bootstrap color ramp
 - [`thematic_brand()`](https://mbacou.github.io/mbutils/reference/thematic_brand.md)

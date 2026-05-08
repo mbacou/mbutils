@@ -78,7 +78,7 @@ reference:
   - brand_on
   - brand_off
   - brand
-  - pal.brand
+  - pal
   - brand.colors
   - thematic_brand
 

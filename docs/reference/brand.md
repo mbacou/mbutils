@@ -50,7 +50,8 @@ TODO search more file locations
 
 ``` r
 brand(font="monospace")
-#> No `_brand.yml` config found in the working tree. Loaded built-in `Mel B. Labs` theme instead.
+#> No `_brand.yml` found in the working tree.
+#>       Loaded built-in `Mel B. Labs` theme instead.
 #> $meta
 #> $meta$name
 #> [1] "Mel B. Labs"
@@ -178,6 +179,7 @@ brand(font="monospace")
 #> [1] "M PLUS Code Latin"
 #> 
 scales::show_col(unlist(brand()$color$palette))
-#> No `_brand.yml` config found in the working tree. Loaded built-in `Mel B. Labs` theme instead.
+#> No `_brand.yml` found in the working tree.
+#>       Loaded built-in `Mel B. Labs` theme instead.
 
 ```

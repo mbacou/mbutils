@@ -56,34 +56,44 @@ to restore the environment to its original state.
 
 ``` r
 require(ggplot2)
+#> Loading required package: ggplot2
+#> 
+#> Attaching package: ‘ggplot2’
+#> The following object is masked from ‘mbutils:masks’:
+#> 
+#>     ggplot
 brand_on(font="monospace")
-#> No `_brand.yml` config found in the working tree. Loaded built-in `Mel B. Labs` theme instead.
-scales::show_col(pal.brand())
+#> No `_brand.yml` found in the working tree.
+#>       Loaded built-in `Mel B. Labs` theme instead.
+scales::show_col(pal())
 
 
 set.seed(1)
 x <- runif(100, min = -5, max = 5)
 y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
-plot(x, y, col=4,
- main="Bootstrap Branded Plot", sub="Scatter plot")
+plot(x, y, col=4)
+axes(main="Bootstrap Branded Plot", sub="Scatter plot")
 
 
-plot(x, y, type="h", col=(y>0)+4, nx=NULL,
+plot(x, y, type="h", col=(y>0)+4)
+axes(nx=NULL,
   main="Bootstrap Branded Plot", sub="My Subtitle",
   xlab="X Units", ylab="Y Units")
-abline(h=0, col=pal.brand("red"), lwd=2)
-legend(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+abline(h=0, col=pal("red"), lwd=2)
+legend(names(pal())[4:5], lty=1, lwd=2, col=4:5)
 
 
-plot(x, type="h", col=pal.brand(), side=c(1,4),
+plot(x, type="h", col=pal())
+axes(side=c(1,4),
   main="My Bootstrap Branded Plot",
   sub="Histogram, dummy legend", ylab="Frequency")
-legend(paste("cat", 1:3), fill=pal.brand(1:3))
+legend(paste("cat", 1:3), fill=pal(1:3))
 
 
 # Plot ecdf
-plot(ecdf(rnorm(10)),
+plot(ecdf(rnorm(10)))
+axes(
   main="My Bootstrap Branded Plot",
   sub="Histogram, dummy legend",
   side=c(1,4), ylab="Frequency", nx=NULL)
@@ -99,11 +109,9 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
 
 brand_off()
 par("fg")
-#> [1] "black"
-par("bg")
-#> [1] "white"
+#> [1] "#505050"
 
-# BAck to default ggplot
+# Back to default ggplot
 ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
   geom_col() +
   labs(

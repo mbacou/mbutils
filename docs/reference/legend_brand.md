@@ -16,7 +16,7 @@ legend_brand(
   bty = "n",
   horiz = TRUE,
   xpd = TRUE,
-  inset = c(-0.05, -0.2),
+  inset = c(-0.05, -0.45),
   par = par.brand(),
   ...
 )

@@ -32,8 +32,8 @@ y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 plot(x, y, type="h", col=(y>0)+4, nx=NULL,
   main="Bootstrap Branded Plot", sub="My Subtitle",
   xlab="X Units", ylab="Y Units")
-abline(h=0, col=pal.brand("red"), lwd=2)
-legend(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+abline(h=0, col=pal("red"), lwd=2)
+legend(names(pal())[4:5], lty=1, lwd=2, col=4:5)
 
 brand_off()
 ```

@@ -44,8 +44,8 @@ y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 plot(x, y, type="h", col=(y>0)+4, nx=NULL,
   main="Bootstrap Branded Plot", sub="My Subtitle",
   xlab="X Units", ylab="Y Units")
-abline(h=0, col=pal.brand("red"), lwd=2)
-legend(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+abline(h=0, col=pal("red"), lwd=2)
+legend(names(pal())[4:5], lty=1, lwd=2, col=4:5)
 
 brand_off()
 ```
@@ -73,8 +73,8 @@ Utilities to apply **branding** to R plots
   : Turn Bootstrap brand off
 - [`brand()`](https://mbacou.github.io/mbutils/reference/brand.md) :
   Fetch Bootstrap branding
-- [`pal.brand()`](https://mbacou.github.io/mbutils/reference/pal.brand.md)
-  : Bootstrap color palette
+- [`pal()`](https://mbacou.github.io/mbutils/reference/pal.md) :
+  Bootstrap color palette
 - [`brand.colors()`](https://mbacou.github.io/mbutils/reference/brand.colors.md)
   : Bootstrap color ramp
 - [`thematic_brand()`](https://mbacou.github.io/mbutils/reference/thematic_brand.md)

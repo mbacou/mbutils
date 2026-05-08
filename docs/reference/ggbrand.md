@@ -98,7 +98,7 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
 
 
 ggbrand(mtcars, aes(wt, mpg, color=carb), axes="topright") +
-  geom_smooth(color=pal.brand("red"), fill=pal.brand("pink")) +
+  geom_smooth(color=pal("red"), fill=pal("pink")) +
   geom_point(size=3) +
   guides(color=guide_legend(nrow=1)) +
   labs(

@@ -2,8 +2,7 @@
 
 Qualitative color ramp derived from active branding. This ramp excludes
 Bootstrap's **white**, **black**, **light** and **gray** colors, which
-are typically used for textual elements. By default the color ramp is
-90% transparent.
+are typically used for textual elements.
 
 ## Usage
 

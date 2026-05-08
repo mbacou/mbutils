@@ -6,16 +6,33 @@
 \usage{
 plot_brand(
   x,
-  ...,
   side = getOption("axes.side"),
   main = NA,
   sub = NA,
-  main.line = 5.5
+  main.line = 5.5,
+  axes = FALSE,
+  ann = axes,
+  ...
 )
 }
 \arguments{
+\item{side}{which ide(s) to plot axes (0 to supress all axes), default to \code{getOption("axes.side")} else \code{c(1, 2)} (left and bottom)}
+
+\item{main}{a main title for the plot, see also \code{\link[graphics]{title}}.}
+
+\item{sub}{a subtitle for the plot.}
+
+\item{main.line}{margin line to draw plot title and subtitle, used to adjust plot margins (default: 5.5)}
+
+\item{axes}{a logical value indicating whether both axes should be drawn on
+    the plot.  Use \link[graphics]{graphical parameter} \code{"xaxt"} or \code{"yaxt"}
+    to suppress just one of the axes.}
+
+\item{ann}{a logical value indicating whether the default annotation
+    (title and x and y axis labels) should appear on the plot.}
+
 \item{...}{
-  Arguments passed on to \code{\link[graphics:plot]{graphics::plot}}
+  Arguments passed on to \code{\link[graphics:plot.default]{graphics::plot.default}}
   \describe{
     \item{\code{x,y}}{the \code{x} and \code{y} arguments provide the x and y
     coordinates for the plot.  Any reasonable way of defining the
@@ -47,11 +64,6 @@ plot_brand(
     the \code{range(.)} computation.}
     \item{\code{xlab}}{a label for the x axis, defaults to a description of \code{x}.}
     \item{\code{ylab}}{a label for the y axis, defaults to a description of \code{y}.}
-    \item{\code{ann}}{a logical value indicating whether the default annotation
-    (title and x and y axis labels) should appear on the plot.}
-    \item{\code{axes}}{a logical value indicating whether both axes should be drawn on
-    the plot.  Use \link[graphics]{graphical parameter} \code{"xaxt"} or \code{"yaxt"}
-    to suppress just one of the axes.}
     \item{\code{frame.plot}}{a logical indicating whether a box should be drawn
     around the plot.}
     \item{\code{panel.first}}{an \sQuote{expression} to be evaluated after the
@@ -68,14 +80,6 @@ plot_brand(
     \code{gap.axis} to the two \code{\link[graphics]{axis}()} calls (when
     \code{axes} is true, as per default).}
   }}
-
-\item{side}{which ide(s) to plot axes (0 to supress all axes), default to \code{getOption("axes.side")} else \code{c(1, 2)} (left and bottom)}
-
-\item{main}{a main title for the plot, see also \code{\link[graphics]{title}}.}
-
-\item{sub}{a subtitle for the plot.}
-
-\item{main.line}{margin line to draw plot title and subtitle, used to adjust plot margins (default: 5.5)}
 }
 \description{
 Simply assign default arguments to base R \code{plot} method. This function is exported but not meant to be called directly in most cases. Use \code{\link[=brand_on]{brand_on()}} to apply complete plot customizations (fonts and colors) using \verb{_brand.yml} features.
@@ -90,7 +94,7 @@ y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
 # Standard plot
 plot_brand(x, y, col=4, side=1:2, main.line=2.5,
-  main="Custom Plot", sub="no legend")
+  main="Custom Plot", sub="no legend", axes=TRUE, ann=TRUE)
 
 # Standard plot
 plot_brand(x, y, col=4, side=0, main.line=2.5,
@@ -99,8 +103,8 @@ plot_brand(x, y, col=4, side=0, main.line=2.5,
 # Branded defaults
 plot_brand(x, y, type="h", col=(y>0)+4, side=c(1,4), nx=NULL,
   main="Custom Plot", sub="Histogram with top legend")
-abline(h=0, col=pal.brand("red"), lwd=2)
-legend_brand(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+abline(h=0, col=pal("red"), lwd=2)
+legend_brand(names(pal())[4:5], lty=1, lwd=2, col=4:5)
 
 }
 \seealso{
