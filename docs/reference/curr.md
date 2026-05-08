@@ -62,6 +62,10 @@ curr(x, ...)
   :   Logical, if `FALSE`, values are right-justified to a common width
       (see [`base::format()`](https://rdrr.io/r/base/format.html)).
 
+  `digits`
+
+  :   **\[deprecated\]** Use `accuracy` instead.
+
   `style_positive`
 
   :   A string that determines the style of positive numbers:

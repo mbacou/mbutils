@@ -62,6 +62,11 @@ ggbrand(
 
   :   shorthand for `theme(legend.position="...")` (default: `top`)
 
+  `gradient`
+
+  :   names of Bootstrap colors for continuous gradient (default:
+      `c("blue", "orange", "red")`)
+
   `base_size`
 
   :   base font size, given in pts.
@@ -71,3 +76,45 @@ ggbrand(
 A `ggplot2` object with themef elements
 
 ## Examples
+
+``` r
+require(ggplot2)
+
+ggbrand(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
+  geom_col() +
+  labs(
+    x = "carb",
+    title = "Default Plot with Y-axis on the Right",
+    subtitle = "My very long subtitle with many units",
+    caption = "My very long plot caption with many references.")
+
+
+# Equivalent to below
+ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
+  geom_col() +
+  scale_brand_df() +
+  guides(y=guide_axis(position="right")) +
+  theme_brand(grid="XY")
+
+
+ggbrand(mtcars, aes(wt, mpg, color=carb), axes="topright") +
+  geom_smooth(color=pal.brand("red"), fill=pal.brand("pink")) +
+  geom_point(size=3) +
+  guides(color=guide_legend(nrow=1)) +
+  labs(
+    title = "My Beautiful Plot with X-axis at the Top",
+    subtitle = "My descriptive subtitle with units",
+    caption = "My plot caption with many references.")
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+
+ggbrand(mtcars, aes(wt, mpg, color=factor(cyl)),
+  grid="XY", legend="bottom", base_family="Pacifico") +
+  geom_point(size=3) +
+  labs(
+    x = "cyl",
+    title = "My Plot with Full Gridlines and Pacifico Font",
+    subtitle = "Placed the legend at the bottom",
+    caption = "My plot caption with many references.")
+
+```

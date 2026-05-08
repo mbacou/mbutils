@@ -94,9 +94,8 @@ compiling that variable is not available in `brand.yml` schema, so
 ## Examples
 
 ``` r
-thematic::thematic_set_theme(thematic_brand())
-#> No `_brand.yml` config found in the working tree. Loaded built-in `Mel B. Labs` theme instead.
-#> Error in thematic_brand(): object 'p' not found
+require(ggplot2)
+thematic::thematic_with_theme(thematic_brand(), {
 
 # base
 hist(rchisq(100, df=4), freq=FALSE, ylim=c(0, 0.2),
@@ -104,14 +103,10 @@ col=1:11, border="white", xlab=NA)
 grid(NA, NULL, col="white")
 curve(dchisq(x, df=4), col=3, lty=2, lwd=2, add=TRUE)
 
-
 # lattice
 lattice::show.settings()
 
-
 # ggplot2
-require(ggplot2)
-#> Loading required package: ggplot2
 ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) +
   geom_col() +
   labs(
@@ -120,14 +115,17 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) +
     subtitle = "My very long subtitle with many units",
     caption = "My very long plot caption with many references.")
 
-
 ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) +
   geom_col()
-
 
 ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) +
   geom_col() +
   guides(y=guide_axis(position="right")) +
   theme_brand(base_bg="light")
 
+})
+
+#> Error : thematic doesn't (yet) support the 'agg_record_6d9b3f3c4e06' graphics device. Please report this error to https://github.com/rstudio/thematic/issues/new
+
+#> Error : thematic doesn't (yet) support the 'agg_record_6d9b3f3c4e06' graphics device. Please report this error to https://github.com/rstudio/thematic/issues/new
 ```

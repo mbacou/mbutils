@@ -1,7 +1,7 @@
 # Bootstrap color palette
 
 Color palette extracted from the active Bootstrap theme. By default
-colors are read from an external `_brand.yaml` configuration file (or
+colors are read from an external `_brand.yml` configuration file (or
 uses this package built-in brand).
 
 ## Usage

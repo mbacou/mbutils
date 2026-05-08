@@ -31,9 +31,27 @@ brand.colors(x = NULL, omit = c("white", "black", "gray"), ...)
   :   colors to interpolate; must be a valid argument to
       [`col2rgb()`](https://rdrr.io/r/grDevices/col2rgb.html).
 
+  `bias`
+
+  :   a positive number. Higher values give more widely spaced colors at
+      the high end.
+
+  `space`
+
+  :   a character string; interpolation in RGB or Lab color spaces.
+
+  `interpolate`
+
+  :   use spline or linear interpolation.
+
+  `alpha`
+
+  :   logical: should alpha channel (opacity) values be returned? It is
+      an error to give a true value if `space` is specified.
+
 ## Value
 
-vector of n interpolated colors
+color palette function
 
 ## Examples
 

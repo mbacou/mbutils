@@ -25,9 +25,11 @@ Opinionated **plot** customizations
 - [`axes()`](https://mbacou.github.io/mbutils/reference/axes.md) :
   Bootstrap-branded axes and labels for base R graphics
 - [`par.brand()`](https://mbacou.github.io/mbutils/reference/par.brand.md)
-  : Set or query graphical parameters for Bootstrap branded plots
-- [`plot(`*`<brand>`*`)`](https://mbacou.github.io/mbutils/reference/plot.brand.md)
+  : Graphical parameters for Bootstrap branded plots
+- [`plot_brand()`](https://mbacou.github.io/mbutils/reference/plot_brand.md)
   : Wrapper for base plot()
+- [`legend_brand()`](https://mbacou.github.io/mbutils/reference/legend_brand.md)
+  : Wrapper for graphics::legend()
 
 ## Branded ggplot2 scales, axes and legend
 

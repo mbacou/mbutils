@@ -22,13 +22,14 @@ If not specified, must be supplied in each layer added to the plot.}
 \item{axes}{position of X (\code{bottom} or \code{top}) and Y (\code{left} or \code{right}) primary axes (default: \code{bottomright})}
 
 \item{...}{
-  Arguments passed on to \code{\link[=theme_brand]{theme_brand}}
+  Arguments passed on to \code{\link{theme_brand}}
   \describe{
     \item{\code{base_color}}{Bootstrap color name for text and line elements, or color code}
     \item{\code{base_bg}}{Bootstrap color name for plot, panel background, or color code}
     \item{\code{base_family}}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}), else a valid system or Google font family name}
     \item{\code{grid}}{show gridlines \code{XY}, \code{X}, \code{Y} (default) or \code{n} for no gridline}
     \item{\code{legend}}{shorthand for \code{theme(legend.position="...")} (default: \code{top})}
+    \item{\code{gradient}}{names of Bootstrap colors for continuous gradient (default: \code{c("blue", "orange", "red")})}
     \item{\code{base_size}}{base font size, given in pts.}
   }}
 }
@@ -59,7 +60,7 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
 ggbrand(mtcars, aes(wt, mpg, color=carb), axes="topright") +
   geom_smooth(color=pal.brand("red"), fill=pal.brand("pink")) +
   geom_point(size=3) +
-  guides(color=guide_legend(nrow=1) +
+  guides(color=guide_legend(nrow=1)) +
   labs(
     title = "My Beautiful Plot with X-axis at the Top",
     subtitle = "My descriptive subtitle with units",

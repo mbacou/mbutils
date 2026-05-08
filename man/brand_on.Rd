@@ -4,68 +4,74 @@
 \alias{brand_on}
 \title{Apply Boostrap brand to graphic devices and plots}
 \usage{
-brand_on(file, font)
+brand_on(...)
 }
 \arguments{
-\item{file}{path to \verb{_brand.yml} configuration file, normally this file is auto-detected in the working tree, but may be specified here to swap branding dynamically.}
-
-\item{font}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}).}
+\item{...}{
+  Arguments passed on to \code{\link{brand}}
+  \describe{
+    \item{\code{file}}{path to \verb{_brand.yml} configuration file, normally this file is auto-detected in the working tree, but may be specified here to swap branding dynamically.}
+    \item{\code{font}}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}).}
+  }}
 }
 \value{
 (invisible) list of branding elements similar in structure to \verb{_brand.yml}
 }
 \description{
-This function is inspired by \code{\link[thematic:thematic_on]{thematic::thematic_on()}}. It modifies base R graphics, lattice, and ggplot colors and fonts to match a user-specified Bootstrap theme (using \verb{_brand.yml}) features. It also further modifies the appearance of plot axes and legends (see examples).
+This function is inspired by \code{\link[thematic:thematic_on]{thematic::thematic_on()}}. It modifies base R graphics, lattice, and ggplot colors and fonts to match a user-specified Bootstrap theme (using \verb{_brand.yml}) features. It also modifies the appearance of plot axes and legends (see examples).
 }
 \details{
-Calling \code{brand_on()} has a few side effects in that it modifies global \code{par()} parameters, ggplot theme and color palette, and it will silently \strong{mask functions \code{ggplot2::ggplot()} and `graphics::legend()'}.
-
-The base generic \code{plot()} function is not masked but axes are turned off by \code{par()} and need to be added to plots explicitely with \code{mbutils::axes()} (shorthand for plotting multiple axes at once) or \code{graphics::axis()}.
+Calling \code{brand_on()} has a few side effects in that it modifies global \code{par()} parameters, ggplot theme and color palette, and it will silently mask generic functions \code{graphics::plot}, \code{ggplot2::ggplot()} and `graphics::legend()'.
 
 Use in combination with \code{\link[=brand_off]{brand_off()}} to restore the environment to its original state.
 }
 \examples{
+require(ggplot2)
 brand_on(font="monospace")
-
 scales::show_col(pal.brand())
 
 set.seed(1)
 x <- runif(100, min = -5, max = 5)
 y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
-plot(x, y, col=4)
-axis(main="Bootstrap Branded Plot", sub="Scatter plot")
+plot(x, y, col=4,
+ main="Bootstrap Branded Plot", sub="Scatter plot")
 
-plot(x, y, type="h", col=(y>0)+4)
-axes(nx=NULL, col.sub=pal.brand("red"),
-  main="Bootstrap Branded Plot", sub="Subtitle",
+plot(x, y, type="h", col=(y>0)+4, nx=NULL,
+  main="Bootstrap Branded Plot", sub="My Subtitle",
   xlab="X Units", ylab="Y Units")
 abline(h=0, col=pal.brand("red"), lwd=2)
 legend(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
 
-hist(x, col=pal.brand())
-axes(c(1,4),
+plot(x, type="h", col=pal.brand(), side=c(1,4),
   main="My Bootstrap Branded Plot",
-  sub="Histogram, dummy legend", ylab="Frequency", lty=1)
+  sub="Histogram, dummy legend", ylab="Frequency")
 legend(paste("cat", 1:3), fill=pal.brand(1:3))
 
 # Plot ecdf
-F10 <- ecdf(rnorm(10))
-plot(F10)
-axes(c(1,4),
+plot(ecdf(rnorm(10)),
   main="My Bootstrap Branded Plot",
-  sub="Histogram, dummy legend", ylab="Frequency", nx=NULL)
+  sub="Histogram, dummy legend",
+  side=c(1,4), ylab="Frequency", nx=NULL)
 
 ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
   geom_col() +
   labs(
-    title = "Branded plot with fonts and color palette",
+    title = "Branded plot with custom fonts and color palette",
     subtitle = "My very long subtitle with many units",
     caption = "My very long plot caption with many references.")
 
 brand_off()
 par("fg")
 par("bg")
+
+# BAck to default ggplot
+ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
+  geom_col() +
+  labs(
+    title = "Branded plot with custom fonts and color palette",
+    subtitle = "My very long subtitle with many units",
+    caption = "My very long plot caption with many references.")
 
 }
 \references{

@@ -15,7 +15,7 @@ pal.brand(x = NULL, named = TRUE)
 A vector of (named) hex color codes extracted from Bootstrap branding
 }
 \description{
-Color palette extracted from the active Bootstrap theme. By default colors are read from an external \verb{_brand.yaml} configuration file (or uses this package built-in brand).
+Color palette extracted from the active Bootstrap theme. By default colors are read from an external \verb{_brand.yml} configuration file (or uses this package built-in brand).
 }
 \examples{
 scales::show_col(pal.brand())

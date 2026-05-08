@@ -16,7 +16,11 @@ template:
     pre-bg: "#ffffff"
     font-weight-bold: 500
     line-height-base: 1.5
-    border-radius: .25rem
+    enable-rounded: false
+
+figures:
+  dpi: 120
+  fig.retina: 1
 
 development:
   mode: auto
@@ -33,6 +37,7 @@ home:
     href: https://mbacou.github.io/mbutils
 
 navbar:
+  bg: secondary
   type: light
   title: ~
   structure:
@@ -83,7 +88,8 @@ reference:
   contents:
   - contains("axes")
   - contains("par")
-  - plot.brand
+  - plot_brand
+  - legend_brand
 
 - title: Branded ggplot2 scales, axes and legend
   desc: >

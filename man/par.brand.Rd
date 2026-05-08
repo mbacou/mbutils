@@ -2,16 +2,14 @@
 % Please edit documentation in R/plot.R
 \name{par.brand}
 \alias{par.brand}
-\title{Set or query graphical parameters for Bootstrap branded plots}
+\title{Graphical parameters for Bootstrap branded plots}
 \usage{
-par.brand(fg = NULL, bg = NULL, family = NULL, ...)
+par.brand(fg = NULL, bg = NULL, font = "base", ...)
 }
 \arguments{
 \item{fg}{Bootstrap color \strong{name} for text and line elements, or color code}
 
 \item{bg}{Bootstrap color \strong{name} for plot, panel background, or color code}
-
-\item{family}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}), else a valid System or Google font family name}
 
 \item{...}{
   Arguments passed on to \code{\link[graphics:par]{graphics::par}}
@@ -20,6 +18,8 @@ par.brand(fg = NULL, bg = NULL, family = NULL, ...)
     arguments, only parameters are returned which can be set by a
     subsequent \code{par()} call \emph{on the same device}.}
   }}
+
+\item{family}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}), else a valid System or Google font family name}
 }
 \value{
 a list of graphical parameters
@@ -30,7 +30,7 @@ Opinionated mods to base R plots compatible with new \verb{_brand.yml} feature. 
 \examples{
 opar <- par(par.brand())
 par()
-# Restore device to default state
+# Restore plotting device to default state
 par(opar)
 
 }

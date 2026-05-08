@@ -39,9 +39,10 @@ scale_brand_df(x, ...)
   `name`
 
   :   The name of the scale. Used as the axis or legend title. If
-      `waiver()`, the default, the name of the scale is taken from the
-      first mapping used for that aesthetic. If `NULL`, the legend title
-      will be omitted.
+      [`waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html),
+      the default, the name of the scale is taken from the first mapping
+      used for that aesthetic. If `NULL`, the legend title will be
+      omitted.
 
   `breaks`
 
@@ -49,7 +50,8 @@ scale_brand_df(x, ...)
 
       - `NULL` for no breaks
 
-      - `waiver()` for the default breaks (the scale limits)
+      - [`waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html)
+        for the default breaks (the scale limits)
 
       - A character vector of breaks
 
@@ -64,8 +66,9 @@ scale_brand_df(x, ...)
 
       - `NULL` for no minor breaks
 
-      - `waiver()` for the default breaks (none for discrete, one minor
-        break between each major break for continuous)
+      - [`waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html)
+        for the default breaks (none for discrete, one minor break
+        between each major break for continuous)
 
       - A numeric vector of positions
 
@@ -83,8 +86,8 @@ scale_brand_df(x, ...)
 
       - `NULL` for no labels
 
-      - `waiver()` for the default labels computed by the transformation
-        object
+      - [`waiver()`](https://ggplot2.tidyverse.org/reference/waiver.html)
+        for the default labels computed by the transformation object
 
       - A character vector giving labels (must be same length as
         `breaks`)

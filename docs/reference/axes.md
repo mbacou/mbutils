@@ -14,8 +14,6 @@ axes(
   axes.lty = NULL,
   gap.axis = c(NA, NA),
   line = c(0, 0),
-  main = NA,
-  sub = NA,
   xlab = NA,
   ylab = NA,
   nx = NA,
@@ -50,16 +48,6 @@ axes(
 
   specifying a value for `line` overrides the default placement of
   labels, and places them this many lines outwards from the plot edge.
-
-- main:
-
-  The main title (on top) using font, size (character expansion) and
-  color `par(c("font.main", "cex.main", "col.main"))`.
-
-- sub:
-
-  Sub-title (at bottom) using font, size and color
-  `par(c("font.sub", "cex.sub", "col.sub"))`.
 
 - xlab:
 
@@ -110,30 +98,24 @@ y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
 opar <- par(par.brand())
 
-plot.brand(x, y)
-#> Error in plot.brand(x, y): could not find function "plot.brand"
-axes(nx=NULL, col.sub="red",
-  main="My Bootstrap Branded Plot", sub="Subtitle",
-  xlab="X Units", ylab="Y Units")
-#> Error in axes(nx = NULL, col.sub = "red", main = "My Bootstrap Branded Plot",     sub = "Subtitle", xlab = "X Units", ylab = "Y Units"): unused argument (col.sub = "red")
+plot(x, y, axes=FALSE,
+  main="My Bootstrap Branded Plot", sub="Subtitle")
+axes(nx=NULL, xlab="X Units", ylab="Y Units")
 abline(h=0, col="red", lwd=2)
-#> Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
 
-plot.brand(x, type="h", col=c("red", "green")[(x > 0) + 1])
-#> Error in plot.brand(x, type = "h", col = c("red", "green")[(x > 0) + 1]): could not find function "plot.brand"
-axes(main="My Bootstrap Branded Plot", sub="Histogram",
-  xlab="X units", ylab="Y units")
-#> Error in match.arg(as.character(side), choices = as.character(0:4), several.ok = TRUE): 'arg' must be of length >= 1
-legend.brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
-#> Error in legend.brand(c("Red", "Green"), lty = 1, lwd = 2, col = c("red",     "green")): could not find function "legend.brand"
 
-hist(x, col=pal.brand())
-axes(c(1,4),
-  main="My Bootstrap Branded Plot",
-  sub="Histogram, dummy legend", ylab="Frequency", lty=1)
-#> Error in axes(c(1, 4), main = "My Bootstrap Branded Plot", sub = "Histogram, dummy legend",     ylab = "Frequency", lty = 1): unused argument (lty = 1)
-legend.brand(paste("cat", 1:3), fill=pal.brand(1:3), lty=0)
-#> Error in legend.brand(paste("cat", 1:3), fill = pal.brand(1:3), lty = 0): could not find function "legend.brand"
+plot(x, type="h", col=c("red", "green")[(x > 0) + 1], axes=FALSE,
+  main="My Bootstrap Branded Plot", sub="Histogram")
+axes(xlab="X units", ylab="Y units")
+legend_brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
+
+
+hist(x, col=pal.brand(), border=NA, axes=FALSE,
+  main="My Bootstrap Branded Plot", sub="Histogram, dummy legend",
+  xlab=NA, ylab=NA)
+axes(c(1,4), ylab="Frequency")
+legend_brand(paste("cat", 1:3), fill=pal.brand(1:3), lty=0)
+
 
 # Restore
 par(opar)

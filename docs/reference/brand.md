@@ -29,12 +29,12 @@ List of branding elements similar in structure to `_brand.yml`
 
 ## Details
 
-Refer to [brand.yml](https://posit-dev.github.io/brand-yml/)
+Refer to [brand.yml](https://posit-dev.github.io/brand-yml/) for
 documentation.
 
 Typically there is no need to call `brand()` directly. Instead use
 [`brand_on()`](https://mbacou.github.io/mbutils/reference/brand_on.md)
-to apply plot branding to your active session.
+to apply plot branding across your active session.
 
 TODO search more file locations
 
@@ -57,10 +57,10 @@ brand(font="monospace")
 #> 
 #> $meta$link
 #> $meta$link$home
-#> [1] "https://mbacou.github.io/mblabs"
+#> [1] "https://mbacou.github.io/mbutils"
 #> 
 #> $meta$link$github
-#> [1] "https://github.com/mbacou/mblabs"
+#> [1] "https://github.com/mbacou/mbutils"
 #> 
 #> 
 #> 

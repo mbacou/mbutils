@@ -12,3 +12,5 @@ out$
 qmd$
 ^LICENSE\.md$
 ^data-raw$
+^\.positai$
+^\.claude$

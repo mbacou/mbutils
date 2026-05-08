@@ -10,7 +10,7 @@ curr(x, ...)
 \item{x}{A numeric vector to format}
 
 \item{...}{
-  Arguments passed on to \code{\link[scales:comma]{scales::number_format}}
+  Arguments passed on to \code{\link[scales:number_format]{scales::number_format}}
   \describe{
     \item{\code{accuracy}}{A number to round to. Use (e.g.) \code{0.01} to show 2 decimal
 places of precision. If \code{NULL}, the default, uses a heuristic that should
@@ -33,6 +33,7 @@ decimal point.  The default (\code{NULL}) retrieves the setting from the
 \link[scales:number_options]{number options}.}
     \item{\code{trim}}{Logical, if \code{FALSE}, values are right-justified to a common
 width (see \code{\link[base:format]{base::format()}}).}
+    \item{\code{digits}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use \code{accuracy} instead.}
     \item{\code{style_positive}}{A string that determines the style of positive numbers:
 \itemize{
 \item \code{"none"} (the default): no change, e.g. \code{1}.

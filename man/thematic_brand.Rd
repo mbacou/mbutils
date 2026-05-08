@@ -55,7 +55,8 @@ Applies Bootstrap branding to R graphics using \code{thematic} R package utiliti
 Typically charts will use Boostrap \strong{sans-serif} font, but as of compiling that variable is not available in \code{brand.yml} schema, so \code{brand_theme} will take the \strong{first} font declared in the \strong{typography} tree.
 }
 \examples{
-thematic::thematic_set_theme(thematic_brand())
+require(ggplot2)
+thematic::thematic_with_theme(thematic_brand(), {
 
 # base
 hist(rchisq(100, df=4), freq=FALSE, ylim=c(0, 0.2),
@@ -67,7 +68,6 @@ curve(dchisq(x, df=4), col=3, lty=2, lwd=2, add=TRUE)
 lattice::show.settings()
 
 # ggplot2
-require(ggplot2)
 ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) +
   geom_col() +
   labs(
@@ -83,5 +83,7 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) +
   geom_col() +
   guides(y=guide_axis(position="right")) +
   theme_brand(base_bg="light")
+
+})
 
 }

@@ -1,6 +1,7 @@
+# Internal helper: name of temporary attached environment
 # This approach also used in thematic package
-options(use.brand = TRUE, axes.side = c(3, 4))
-.globals <- new.env(parent = emptyenv())
+options(axes.side = c(3, 4))
+.globals = "mbutils:masks"
 
 
 #' Built-in default Bootstrap brand
@@ -23,15 +24,16 @@ options(use.brand = TRUE, axes.side = c(3, 4))
 #'
 #' Make this package compatible with `brand.yml` unified branding features. Branding can be read from a configuration file provided at run-time, else it will use this package built-in theme.
 #'
-#' Refer to [brand.yml](https://posit-dev.github.io/brand-yml/) documentation.
+#' Refer to [brand.yml](https://posit-dev.github.io/brand-yml/) for documentation.
 #'
-#' Typically there is no need to call `brand()` directly. Instead use [brand_on()] to apply plot branding to your active session.
+#' Typically there is no need to call `brand()` directly. Instead use [brand_on()] to apply plot branding across your active session.
 #'
 #' TODO search more file locations
 #'
 #' @param file path to `_brand.yml` configuration file, normally this file is auto-detected in the working tree, but may be specified here to swap branding dynamically.
 #' @param font one of `_brand.yml` font families (currently only `base`, `monospace`, or `headings`).
 #' @importFrom yaml read_yaml
+#' @importFrom sysfonts font_add_google font_families
 #' @returns List of branding elements similar in structure to `_brand.yml`
 #' @seealso [brand_on()]
 #' @references [brand.yml](https://posit-dev.github.io/brand-yml/)
@@ -68,65 +70,60 @@ brand <- function(
   # Get font if not found, assume Google font
   if (!font %in% font_families()) {
     font_add_google(font)
-    showtext_auto()
+    #showtext_auto()
   }
 
   b$font = font
-  b
+  return(b)
 }
 
 
 #' Apply Boostrap brand to graphic devices and plots
 #'
-#' This function is inspired by [thematic::thematic_on()]. It modifies base R graphics, lattice, and ggplot colors and fonts to match a user-specified Bootstrap theme (using `_brand.yml`) features. It also further modifies the appearance of plot axes and legends (see examples).
+#' This function is inspired by [thematic::thematic_on()]. It modifies base R graphics, lattice, and ggplot colors and fonts to match a user-specified Bootstrap theme (using `_brand.yml`) features. It also modifies the appearance of plot axes and legends (see examples).
 #'
-#' Calling `brand_on()` has a few side effects in that it modifies global `par()` parameters, ggplot theme and color palette, and it will silently **mask functions `ggplot2::ggplot()` and `graphics::legend()'**.
-#'
-#' The base generic `plot()` function is not masked but axes are turned off by `par()` and need to be added to plots explicitely with `mbutils::axes()` (shorthand for plotting multiple axes at once) or `graphics::axis()`.
+#' Calling `brand_on()` has a few side effects in that it modifies global `par()` parameters, ggplot theme and color palette, and it will silently mask generic functions `graphics::plot`, `ggplot2::ggplot()` and `graphics::legend()'.
 #'
 #' Use in combination with [brand_off()] to restore the environment to its original state.
 #'
-#' @inheritParams brand
+#' @inheritDotParams brand
 #' @importFrom ggplot2 theme_set
 #' @references [brand.yml](https://posit-dev.github.io/brand-yml/)
 #' @returns (invisible) list of branding elements similar in structure to `_brand.yml`
 #'
 #' @examples
+#' require(ggplot2)
 #' brand_on(font="monospace")
-#'
 #' scales::show_col(pal.brand())
 #'
 #' set.seed(1)
 #' x <- runif(100, min = -5, max = 5)
 #' y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 #'
-#' plot(x, y, col=4)
-#' axis(main="Bootstrap Branded Plot", sub="Scatter plot")
+#' plot(x, y, col=4,
+#'  main="Bootstrap Branded Plot", sub="Scatter plot")
 #'
-#' plot(x, y, type="h", col=(y>0)+4)
-#' axes(nx=NULL, col.sub=pal.brand("red"),
-#'   main="Bootstrap Branded Plot", sub="Subtitle",
+#' plot(x, y, type="h", col=(y>0)+4, nx=NULL,
+#'   main="Bootstrap Branded Plot", sub="My Subtitle",
 #'   xlab="X Units", ylab="Y Units")
 #' abline(h=0, col=pal.brand("red"), lwd=2)
 #' legend(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
 #'
-#' hist(x, col=pal.brand())
-#' axes(c(1,4),
+#' plot(x, type="h", col=pal.brand(), side=c(1,4),
 #'   main="My Bootstrap Branded Plot",
-#'   sub="Histogram, dummy legend", ylab="Frequency", lty=1)
+#'   sub="Histogram, dummy legend", ylab="Frequency")
 #' legend(paste("cat", 1:3), fill=pal.brand(1:3))
 #'
 #' # Plot ecdf
-#' F10 <- ecdf(rnorm(10))
-#' plot(F10)
-#' axes(c(1,4),
+#' plot(ecdf(rnorm(10)),
 #'   main="My Bootstrap Branded Plot",
-#'   sub="Histogram, dummy legend", ylab="Frequency", nx=NULL)
+#'   sub="Histogram, dummy legend",
+#'   side=c(1,4), ylab="Frequency", nx=NULL)
 #'
 #' ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
 #'   geom_col() +
 #'   labs(
-#'     title = "Branded plot with fonts and color palette",
+#'     title = "Branded plot with custom fonts and color palette",
 #'     subtitle = "My very long subtitle with many units",
 #'     caption = "My very long plot caption with many references.")
 #'
@@ -134,30 +131,47 @@ brand <- function(
 #' par("fg")
 #' par("bg")
 #'
+#' # BAck to default ggplot
+#' ggplot(mtcars, aes(factor(carb), mpg, fill=factor(carb))) +
+#'   geom_col() +
+#'   labs(
+#'     title = "Branded plot with custom fonts and color palette",
+#'     subtitle = "My very long subtitle with many units",
+#'     caption = "My very long plot caption with many references.")
+#'
 #' @export
-brand_on <- function(file, font) {
-  # Load _brand.yml config
-  b = brand(file, font)
+brand_on <- function(...) {
+  # Clean up to prevent chained call side effects
+  brand_off()
 
-  # Set color palette
+  # Load _brand.yml config
+  b = brand(...)
+
+  # Set session color palette
   opal = palette(unlist(b$color$palette))
 
   # Set graphic parameters
   opar = par(par.brand())
 
-  # Turn off default plot axes and labels
-  assign("plot.default", plot.brand, pos = "package:mbutils")
-  assign("legend", legend.brand, pos = "package:mbutils")
-  assign("ggplot", ggbrand, pos = "package:mbutils")
-
   # Set global ggplot theme
   otheme = ggplot2::theme_set(theme_brand())
 
+  # Create new env
+  e <- new.env(parent = emptyenv())
+
+  # Mask generic plot functions
+  e$plot = plot_brand
+  e$legend = legend_brand
+  e$ggplot = ggbrand
+
   # Set globals so we can restore state
-  assign("brand", b, envir = .globals)
-  assign("par", opar, envir = .globals)
-  assign("palette", opal, envir = .globals)
-  assign("theme", otheme, envir = .globals)
+  e$brand = b
+  e$par = opar
+  e$palette = opal
+  e$theme = otheme
+
+  # Attach env just after mbutils on the search path
+  attach(e, name = .globals, warn.conflicts = FALSE)
   invisible(b)
 }
 
@@ -170,30 +184,29 @@ brand_on <- function(file, font) {
 #' @returns TRUE (invisibly)
 #' @export
 brand_off <- function() {
-  if (!is.null(dev.list())) {
-    dev.off()
-  }
+  # # Close graphic devices
+  # if (!is.null(dev.list())) {
+  #   dev.off()
+  # }
 
-  # Clean up
-  rm(plot.default, legend, ggplot, pos = "package:mbutils")
-
-  if (is.null(.globals$palette)) {
+  # Restore state
+  if (.globals %in% search()) {
+    e = as.environment(.globals)
+    par(e$par)
+    palette(e$palette)
+    ggplot2::theme_set(e$theme)
+    detach(.globals, character.only = TRUE)
+  } else {
     palette("default")
     ggplot2::theme_set(ggplot2::theme_gray())
-  } else {
-    par(.globals$par)
-    palette(.globals$palette)
-    ggplot2::theme_set(.globals$theme)
   }
-
-  rm(brand, par, palette, envir = .globals)
   invisible(TRUE)
 }
 
 
 #' Bootstrap color palette
 #'
-#' Color palette extracted from the active Bootstrap theme. By default colors are read from an external `_brand.yaml` configuration file (or uses this package built-in brand).
+#' Color palette extracted from the active Bootstrap theme. By default colors are read from an external `_brand.yml` configuration file (or uses this package built-in brand).
 #'
 #' @param x Color index or name(s), skip to return the entire color palette
 #' @param named keep color names (default: TRUE)
@@ -206,11 +219,17 @@ brand_off <- function() {
 #'
 #' @export
 pal.brand <- function(x = NULL, named = TRUE) {
-  b = .globals$brand
-  b = if (is.null(b)) suppressMessages(brand()) else b
-  e = if (missing(x)) b$color$palette else b$color$palette[x]
-  e = if (named) e else unname(e)
-  unlist(e)
+  b = if (.globals %in% search()) {
+    # Search the environment
+    as.environment(.globals)$brand
+  } else {
+    # Or call `brand()`
+    suppressMessages(brand())
+  }
+
+  p = if (missing(x)) b$color$palette else b$color$palette[x]
+  p = if (named) p else unname(p)
+  unlist(p)
 }
 
 
@@ -218,12 +237,12 @@ pal.brand <- function(x = NULL, named = TRUE) {
 #'
 #' Qualitative color ramp derived from active branding. This ramp excludes Bootstrap's
 #' **white**, **black**, **light** and **gray** colors, which are typically used for
-#' textual elements. By default the color ramp is 90% transparent.
+#' textual elements.
 #'
 #' @param x Brand color name(s), skip to return the entire color palette
 #' @param omit Brand colors to exclude from color ramp
 #' @inheritDotParams grDevices::colorRampPalette
-#' @return vector of n interpolated colors
+#' @return color palette function
 #' @examples
 #' scales::show_col(brand.colors()(6))
 #' scales::show_col(brand.colors(interpolate="spline")(12))

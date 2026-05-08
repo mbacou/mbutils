@@ -12,14 +12,22 @@ brand.colors(x = NULL, omit = c("white", "black", "gray"), ...)
 \item{omit}{Brand colors to exclude from color ramp}
 
 \item{...}{
-  Arguments passed on to \code{\link[grDevices:colorRamp]{grDevices::colorRampPalette}}
+  Arguments passed on to \code{\link[grDevices:colorRampPalette]{grDevices::colorRampPalette}}
   \describe{
     \item{\code{colors}}{colors to interpolate; must be a valid argument to
     \code{\link[grDevices]{col2rgb}()}.}
+    \item{\code{bias}}{a positive number.  Higher values give more widely spaced
+    colors at the high end.}
+    \item{\code{space}}{a character string; interpolation in RGB or \abbr{CIE} Lab
+    color spaces.}
+    \item{\code{interpolate}}{use spline or linear interpolation.}
+    \item{\code{alpha}}{logical: should alpha channel (opacity) values be
+    returned?   It is an error to give a true value if
+    \code{space} is specified.}
   }}
 }
 \value{
-vector of n interpolated colors
+color palette function
 }
 \description{
 Qualitative color ramp derived from active branding. This ramp excludes Bootstrap's

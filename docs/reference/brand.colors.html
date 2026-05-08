@@ -3,15 +3,15 @@
 white, black, light and gray colors, which are typically used for
 textual elements. By default the color ramp is 90% transparent."><meta property="og:description" content="Qualitative color ramp derived from active branding. This ramp excludes Bootstrap's
 white, black, light and gray colors, which are typically used for
-textual elements. By default the color ramp is 90% transparent."><meta property="og:image" content="https://mbacou.github.io/mbutils/logo.png"></head><body>
+textual elements. By default the color ramp is 90% transparent."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-secondary" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">mbutils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,8 @@ textual elements. By default the color ramp is 90% transparent."><meta property=
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Bootstrap color ramp</h1>
+
+      <h1>Bootstrap color ramp</h1>
       <small class="dont-index">Source: <a href="https://github.com/mbacou/mbutils/blob/HEAD/R/brand.R" class="external-link"><code>R/brand.R</code></a></small>
       <div class="d-none name"><code>brand.colors.Rd</code></div>
     </div>
@@ -68,23 +69,39 @@ textual elements. By default the color ramp is 90% transparent.</p>
 <dd><p>colors to interpolate; must be a valid argument to
     <code><a href="https://rdrr.io/r/grDevices/col2rgb.html" class="external-link">col2rgb()</a></code>.</p></dd>
 
+    <dt><code>bias</code></dt>
+<dd><p>a positive number.  Higher values give more widely spaced
+    colors at the high end.</p></dd>
+
+    <dt><code>space</code></dt>
+<dd><p>a character string; interpolation in RGB or  Lab
+    color spaces.</p></dd>
+
+    <dt><code>interpolate</code></dt>
+<dd><p>use spline or linear interpolation.</p></dd>
+
+    <dt><code>alpha</code></dt>
+<dd><p>logical: should alpha channel (opacity) values be
+    returned?   It is an error to give a true value if
+    <code>space</code> is specified.</p></dd>
+
 
 </dl></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>vector of n interpolated colors</p>
+    <p>color palette function</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/show_col.html" class="external-link">show_col</a></span><span class="op">(</span><span class="fu">brand.colors</span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="brand.colors-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="brand.colors-1.png" alt="" width="875" height="541"></span>
 <span class="r-in"><span><span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/show_col.html" class="external-link">show_col</a></span><span class="op">(</span><span class="fu">brand.colors</span><span class="op">(</span>interpolate<span class="op">=</span><span class="st">"spline"</span><span class="op">)</span><span class="op">(</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="brand.colors-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="brand.colors-2.png" alt="" width="875" height="541"></span>
 <span class="r-in"><span><span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/show_col.html" class="external-link">show_col</a></span><span class="op">(</span><span class="fu">brand.colors</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"light"</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="brand.colors-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="brand.colors-3.png" alt="" width="875" height="541"></span>
 <span class="r-in"><span><span class="va">s</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 's' not found</span>
 </code></pre></div>

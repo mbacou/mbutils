@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# description: - build and install R package
-#              - render documentation website
+# Description: - document, build and install R package
+#              - render HTML documentation
+#
 
 cd "$(dirname "$(realpath "$0")")";
 
@@ -18,7 +19,7 @@ R -e 'source("data-raw/data.R")'
 R -e 'devtools::document()'
 
 # Build package documentation
-R -e 'pkgdown::build_site(".", preview=FALSE)'
+R -e 'pkgdown::build_site_github_pages()'
 
 # install local
 R -e 'devtools::install()'

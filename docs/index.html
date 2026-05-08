@@ -18,17 +18,16 @@
 <meta property="og:title" content="Mel's Labs R utilities">
 <meta name="description" content="Handy tools, theming utilities, and graphical customizations for R and Quarto notebooks">
 <meta property="og:description" content="Handy tools, theming utilities, and graphical customizations for R and Quarto notebooks">
-<meta property="og:image" content="https://mbacou.github.io/mbutils/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-secondary" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">mbutils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,13 +56,11 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="mbutils">mbutils<a class="anchor" aria-label="anchor" href="#mbutils"></a>
-</h1>
-</div>
+<div class="page-header"><h1 id="mbutils">mbutils<a class="anchor" aria-label="anchor" href="#mbutils"></a>
+</h1></div>
 <p>R package with Mel’s utilities for data science projects and (Quarto) web publishing.</p>
-<p>In particular this package includes Boostrap themes and color scales for <strong>base R graphics</strong>, <strong>lattice</strong> and <strong>ggplot</strong>, implementing the (recent) <a href="https://posit-dev.github.io/brand-yml/" class="external-link">brand.yml</a> flexible branding system.</p>
-<p>This new Quarto feature allows for logos, primary colors, color palettes, fonts, etc. to be specified and swapped across projects and clients using external YAML config files and well-known Bootstrap Sass variables. This package includes my custom themes and additional utilities to turn theme features on/off.</p>
+<p>In particular this package includes <strong>Bootstrap</strong> themes and color scales for <strong>base R graphics</strong>, <strong>lattice</strong> and <strong>ggplot</strong>, implementing the (recent) <a href="https://posit-dev.github.io/brand-yml/" class="external-link">brand.yml</a> flexible document branding system.</p>
+<p>This feature allows for logos, primary colors, color palettes and fonts to be specified and swapped across projects and clients using run-time YAML config files and well-known Bootstrap Sass variables. This package includes (my personal) themes and additional utilities to flexibly turn Bootstrap features on/off.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -76,6 +73,25 @@
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
 <p>For complete R package documentation and technical guides, see the <a href="https://mbacou.github.io/mbutils/">package vignette</a>.</p>
+<p>My default (opinionated) plots with custom sizing ans spacing and default X-axis on the right.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mbacou/mbutils/" class="external-link">mbutils</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/brand_on.html">brand_on</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"transparent"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">5</span>, max <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">^</span> <span class="fl">3</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, type<span class="op">=</span><span class="st">"h"</span>, col<span class="op">=</span><span class="op">(</span><span class="va">y</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span><span class="op">+</span><span class="fl">4</span>, nx<span class="op">=</span><span class="cn">NULL</span>,</span>
+<span>  main<span class="op">=</span><span class="st">"Bootstrap Branded Plot"</span>, sub<span class="op">=</span><span class="st">"My Subtitle"</span>,</span>
+<span>  xlab<span class="op">=</span><span class="st">"X Units"</span>, ylab<span class="op">=</span><span class="st">"Y Units"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span>, col<span class="op">=</span><span class="fu"><a href="reference/pal.brand.html">pal.brand</a></span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="reference/pal.brand.html">pal.brand</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, lty<span class="op">=</span><span class="fl">1</span>, lwd<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/brand_off.html">brand_off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="./reference/figures/example.png" style="width:100.0%" alt="Sample branded plot"><div class="figcaption">Sample branded plot</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>

@@ -12,6 +12,7 @@ theme_brand(
   base_size = 12,
   grid = c("Y", "X", "XY", "n"),
   legend = c("top", "bottom", "right", "left"),
+  gradient = c("blue", "orange", "red"),
   ...
 )
 ```
@@ -42,6 +43,11 @@ theme_brand(
 - legend:
 
   shorthand for `theme(legend.position="...")` (default: `top`)
+
+- gradient:
+
+  names of Bootstrap colors for continuous gradient (default:
+  `c("blue", "orange", "red")`)
 
 - ...:
 

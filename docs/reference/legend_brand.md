@@ -1,15 +1,15 @@
 # Wrapper for graphics::legend()
 
-Simply assign new default arguments to R base
+Simply assign default arguments to base R
 [`legend()`](https://rdrr.io/r/graphics/legend.html). This function is
-not meant to be called directly, it is used by
+exported but is not meant to be called directly, use
 [`brand_on()`](https://mbacou.github.io/mbutils/reference/brand_on.md)
 instead.
 
 ## Usage
 
 ``` r
-legend.brand(
+legend_brand(
   legend,
   x = "topright",
   y = NULL,

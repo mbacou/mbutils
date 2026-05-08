@@ -72,7 +72,8 @@ scale_brand_cf <- function(x = c("orange", "light", "green"), ...) {
 #' @importFrom thematic font_spec thematic_theme
 #' @return a thematic theme object (list)
 #' @examples
-#' thematic::thematic_set_theme(thematic_brand())
+#' require(ggplot2)
+#' thematic::thematic_with_theme(thematic_brand(), {
 #'
 #' # base
 #' hist(rchisq(100, df=4), freq=FALSE, ylim=c(0, 0.2),
@@ -84,7 +85,6 @@ scale_brand_cf <- function(x = c("orange", "light", "green"), ...) {
 #' lattice::show.settings()
 #'
 #' # ggplot2
-#' require(ggplot2)
 #' ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) +
 #'   geom_col() +
 #'   labs(
@@ -101,6 +101,8 @@ scale_brand_cf <- function(x = c("orange", "light", "green"), ...) {
 #'   guides(y=guide_axis(position="right")) +
 #'   theme_brand(base_bg="light")
 #'
+#' })
+#'
 #' @export
 thematic_brand <- function(
   file = NULL,
@@ -115,12 +117,16 @@ thematic_brand <- function(
   alpha = .9,
   ...
 ) {
-  # Load brand locally
-  b = .globals$brand
-  b = if (is.null(b)) brand() else b
-  p = unlist(p$color$palette)
+  b = if (.globals %in% search()) {
+    # Search the environment
+    as.environment(.globals)$brand
+  } else {
+    # Or call `brand()`
+    suppressMessages(brand())
+  }
 
   # Set sensible arguments to thematic_theme
+  p = unlist(b$color$palette)
   bg = if (is.na(p[bg])) p[b$color[[bg]]] else p[bg]
   fg = if (is.na(p[fg])) p[b$color[[fg]]] else p[fg]
   accent = if (is.na(p[accent[1]])) p[unlist(b$color[accent])] else p[accent]
@@ -136,9 +142,9 @@ thematic_brand <- function(
 
   # Qualitative palette
   qualitative = if (missing(qualitative)) {
-    brand.colors(alpha = alpha)
+    adjustcolor(brand.colors()(n), alpha.f = alpha)
   } else {
-    qualitative
+    adjustcolor(qualitative, alpha.f = alpha)
   }
 
   args = list(
@@ -165,6 +171,7 @@ thematic_brand <- function(
 #' @param base_family one of `_brand.yml` font families (currently only `base`, `monospace`, or `headings`), else a valid system or Google font family name
 #' @param grid show gridlines `XY`, `X`, `Y` (default) or `n` for no gridline
 #' @param legend shorthand for `theme(legend.position="...")` (default: `top`)
+#' @param gradient names of Bootstrap colors for continuous gradient (default: `c("blue", "orange", "red")`)
 #' @inheritParams ggthemes::theme_foundation
 #' @inheritDotParams ggplot2::theme
 #'
@@ -210,16 +217,21 @@ theme_brand <- function(
   base_size = 12,
   grid = c("Y", "X", "XY", "n"),
   legend = c("top", "bottom", "right", "left"),
+  gradient = c("orange", "light", "green"),
   ...
 ) {
   grid = match.arg(grid)
   legend = match.arg(legend)
 
-  # Load brand locally
-  b = .globals$brand
-  b = if (is.null(b)) suppressMessages(brand()) else b
-  p = unlist(b$color$palette)
+  b = if (.globals %in% search()) {
+    # Search the environment
+    as.environment(.globals)$brand
+  } else {
+    # Or call `brand()`
+    suppressMessages(brand())
+  }
 
+  p = unlist(b$color$palette)
   base_bg = if (missing(base_bg)) p[b$color$background] else base_bg
   base_color = if (missing(base_color)) p[b$color$foreground] else base_color
   base_family = if (missing(base_family)) "base" else base_family
@@ -307,7 +319,13 @@ theme_brand <- function(
       legend.title.position = "top",
       legend.text = element_text(size = base_size * 0.8, hjust = 1),
       legend.position = legend,
-      legend.justification = 0
+      legend.justification = 0,
+
+      # Apply scales
+      palette.colour.discrete = pal.brand(named = FALSE),
+      palette.fill.discrete = pal.brand(named = FALSE),
+      palette.colour.continuous = pal.brand(gradient, named = FALSE),
+      palette.fill.continuous = pal.brand(gradient, named = FALSE)
     ) +
     theme(...)
 }
@@ -345,7 +363,7 @@ theme_brand <- function(
 #' ggbrand(mtcars, aes(wt, mpg, color=carb), axes="topright") +
 #'   geom_smooth(color=pal.brand("red"), fill=pal.brand("pink")) +
 #'   geom_point(size=3) +
-#'   guides(color=guide_legend(nrow=1) +
+#'   guides(color=guide_legend(nrow=1)) +
 #'   labs(
 #'     title = "My Beautiful Plot with X-axis at the Top",
 #'     subtitle = "My descriptive subtitle with units",

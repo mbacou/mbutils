@@ -1,4 +1,4 @@
-# Set or query graphical parameters for Bootstrap branded plots
+# Graphical parameters for Bootstrap branded plots
 
 Opinionated mods to base R plots compatible with new `_brand.yml`
 feature. Does not load any brand by itself, explicitely call
@@ -8,7 +8,7 @@ if needed instead.
 ## Usage
 
 ``` r
-par.brand(fg = NULL, bg = NULL, family = NULL, ...)
+par.brand(fg = NULL, bg = NULL, font = "base", ...)
 ```
 
 ## Arguments
@@ -21,11 +21,6 @@ par.brand(fg = NULL, bg = NULL, family = NULL, ...)
 
   Bootstrap color **name** for plot, panel background, or color code
 
-- family:
-
-  one of `_brand.yml` font families (currently only `base`, `monospace`,
-  or `headings`), else a valid System or Google font family name
-
 - ...:
 
   Arguments passed on to
@@ -37,6 +32,11 @@ par.brand(fg = NULL, bg = NULL, family = NULL, ...)
       parameters are returned which can be set by a subsequent
       [`par()`](https://rdrr.io/r/graphics/par.html) call *on the same
       device*.
+
+- family:
+
+  one of `_brand.yml` font families (currently only `base`, `monospace`,
+  or `headings`), else a valid System or Google font family name
 
 ## Value
 
@@ -111,7 +111,7 @@ par()
 #> [1] 0.2
 #> 
 #> $cxy
-#> [1] 0.02665877 0.04143646
+#> [1] 0.02440347 0.03253796
 #> 
 #> $din
 #> [1] 6.666667 6.666667
@@ -171,10 +171,10 @@ par()
 #> [1] 1
 #> 
 #> $mai
-#> [1] 0.42 0.42 1.42 0.62
+#> [1] 0.26 0.26 0.26 0.26
 #> 
 #> $mar
-#> [1] 2.1 2.1 7.1 3.1
+#> [1] 1.3 1.3 1.3 1.3
 #> 
 #> $mex
 #> [1] 1
@@ -213,10 +213,10 @@ par()
 #> [1] 1
 #> 
 #> $pin
-#> [1] 5.626667 4.826667
+#> [1] 6.146667 6.146667
 #> 
 #> $plt
-#> [1] 0.063 0.907 0.063 0.787
+#> [1] 0.039 0.961 0.039 0.961
 #> 
 #> $ps
 #> [1] 12
@@ -263,6 +263,6 @@ par()
 #> $ylbias
 #> [1] 0.2
 #> 
-# Restore device to default state
+# Restore plotting device to default state
 par(opar)
 ```

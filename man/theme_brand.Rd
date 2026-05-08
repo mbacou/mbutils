@@ -11,6 +11,7 @@ theme_brand(
   base_size = 12,
   grid = c("Y", "X", "XY", "n"),
   legend = c("top", "bottom", "right", "left"),
+  gradient = c("blue", "orange", "red"),
   ...
 )
 }
@@ -26,6 +27,8 @@ theme_brand(
 \item{grid}{show gridlines \code{XY}, \code{X}, \code{Y} (default) or \code{n} for no gridline}
 
 \item{legend}{shorthand for \code{theme(legend.position="...")} (default: \code{top})}
+
+\item{gradient}{names of Bootstrap colors for continuous gradient (default: \code{c("blue", "orange", "red")})}
 
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:theme]{ggplot2::theme}}
