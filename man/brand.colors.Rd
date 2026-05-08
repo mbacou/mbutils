@@ -32,7 +32,7 @@ color palette function
 \description{
 Qualitative color ramp derived from active branding. This ramp excludes Bootstrap's
 \strong{white}, \strong{black}, \strong{light} and \strong{gray} colors, which are typically used for
-textual elements. By default the color ramp is 90\% transparent.
+textual elements.
 }
 \examples{
 scales::show_col(brand.colors()(6))

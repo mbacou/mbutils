@@ -20,8 +20,8 @@ You can install this package from the development version on GitHub:
 
 ``` r
 
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("mbacou/mbutils")
+if (!require("pak")) install.packages("pak")
+pak::pak("mbacou/mbutils")
 ```
 
 ## Documentation
@@ -29,7 +29,7 @@ remotes::install_github("mbacou/mbutils")
 For complete R package documentation and technical guides, see the
 [package vignette](https://mbacou.github.io/mbutils/).
 
-My default (opinionated) plots with custom sizing ans spacing and
+My default (opinionated) plots with custom sizing and spacing and a
 default X-axis on the right.
 
 ``` r

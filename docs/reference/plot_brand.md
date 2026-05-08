@@ -173,6 +173,7 @@ plot_brand(x, y, col=4, side=0, main.line=2.5,
 plot_brand(x, y, type="h", col=(y>0)+4, side=c(1,4), nx=NULL,
   main="Custom Plot", sub="Histogram with top legend")
 abline(h=0, col=pal.brand("red"), lwd=2)
-legend_brand(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
 
+legend_brand(names(pal.brand())[4:5], lty=1, lwd=2, col=4:5)
+#> Error in legend_brand(names(pal.brand())[4:5], lty = 1, lwd = 2, col = 4:5): could not find function "legend_brand"
 ```

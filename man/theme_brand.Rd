@@ -11,7 +11,7 @@ theme_brand(
   base_size = 12,
   grid = c("Y", "X", "XY", "n"),
   legend = c("top", "bottom", "right", "left"),
-  gradient = c("blue", "orange", "red"),
+  gradient = c("orange", "light", "green"),
   ...
 )
 }
