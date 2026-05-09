@@ -10,9 +10,7 @@
 
 #### v2.3.0x
 
-- More flexible
-  [`plot_brand()`](https://mbacou.github.io/mbutils/reference/plot_brand.md)
-  implementation
+- More flexible `plot_brand()` implementation
 
 #### v1.0.0
 

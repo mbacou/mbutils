@@ -119,17 +119,15 @@ abline(h=0, col="red", lwd=2)
 plot(x, type="h", col=c("red", "green")[(x > 0) + 1], axes=FALSE,
   main="My Bootstrap Branded Plot", sub="Histogram")
 axes(xlab="X units", ylab="Y units")
-
 legend_brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
-#> Error in legend_brand(c("Red", "Green"), lty = 1, lwd = 2, col = c("red",     "green")): could not find function "legend_brand"
+
 
 hist(x, col=pal(), border=NA, axes=FALSE,
   main="My Bootstrap Branded Plot", sub="Histogram, dummy legend",
   xlab=NA, ylab=NA)
 axes(c(1,4), ylab="Frequency")
-
 legend_brand(paste("cat", 1:3), fill=pal(1:3), lty=0)
-#> Error in legend_brand(paste("cat", 1:3), fill = pal(1:3), lty = 0): could not find function "legend_brand"
+
 
 # Restore
 par(opar)

@@ -1,86 +1,3 @@
-#' Wrapper for base plot()
-#'
-#' Simply assign default arguments to base R `plot` method. This function is exported but not meant to be called directly in most cases. Use [brand_on()] to apply complete plot customizations (fonts and colors) using `_brand.yml` features.
-#'
-#' Use `side = c(1,2)` etc. to control axis visibility. For more granular control over axis display use `side=0` and this package [axes()] or base R [axis()].
-#'
-#' @inheritParams graphics::plot.default
-#' @param side which ide(s) to plot axes (0 to supress all axes), default to `getOption("axes.side")` else `c(1, 2)` (left and bottom)
-#' @param main.line margin line to draw plot title and subtitle, used to adjust plot margins (default: 5.5)
-#' @inheritDotParams graphics::plot.default
-#' @seealso [axes()]
-#' @examples
-#' set.seed(1)
-#' x <- runif(100, min = -5, max = 5)
-#' y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
-#'
-#' # Standard plot
-#' plot_brand(x, y, col=4, side=1:2, main.line=2.5,
-#'   main="Custom Plot", sub="no legend", axes=TRUE, ann=TRUE)
-#'
-#' # Standard plot
-#' plot_brand(x, y, col=4, side=0, main.line=2.5,
-#'   main="Custom Plot", sub="no axis")
-#'
-#' # Branded defaults
-#' plot_brand(x, y, type="h", col=(y>0)+4, side=c(1,4), nx=NULL,
-#'   main="Custom Plot", sub="Histogram with top legend")
-#' abline(h=0, col=pal("red"), lwd=2)
-#' legend_brand(names(pal())[4:5], lty=1, lwd=2, col=4:5)
-#'
-#' @export
-plot_brand <- function(
-  x,
-  side = getOption("axes.side"),
-  main = NA,
-  sub = NA,
-  main.line = 5.5,
-  axes = FALSE,
-  ann = axes,
-  ...
-) {
-  # Dispatch call arguments
-  args = list(...)
-  args2 = args[names(args) %in% names(formals("axes"))]
-  args = args[!names(args) %in% names(formals("axes"))]
-  args[["x"]] = x
-  args[["axes"]] = axes
-  args[["ann"]] = ann
-  args2[["side"]] = side
-
-  opar = par(
-    mar = par.brand()$mar + 3 * (1:4 %in% side) + c(0, 0, main.line, 0),
-    mgp = par.brand()$mgp,
-    bty = par.brand()$bty,
-    no.readonly = TRUE
-  )
-
-  # Always restore state
-  on.exit(suppressWarnings(par(opar)))
-
-  # Draw plot
-  plot_fn <- get("plot.default", envir = as.environment("package:graphics"))
-  do.call(plot_fn, args)
-  if (!(axes)) {
-    do.call("axes", args2)
-  }
-
-  # Main
-  title(main = main, line = main.line, adj = 0, col.main = par("fg"))
-
-  # Sub
-  mtext(
-    sub,
-    side = 3,
-    line = main.line - 1.5,
-    adj = 0,
-    cex = par("cex.sub"),
-    font = par("font.sub"),
-    col = par("col.sub")
-  )
-}
-
-
 #' Wrapper for graphics::legend()
 #'
 #' Simply assign default arguments to base R [legend()]. This function is exported but is not meant to be called directly, use [brand_on()] instead.
@@ -90,6 +7,29 @@ plot_brand <- function(
 #'
 #' @seealso [axes()]
 #' @returns Branded legend for base R plots
+#'
+#' @examples
+#' set.seed(1)
+#' x <- runif(100, min = -5, max = 5)
+#' y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
+#'
+#' opar <- par(par.brand())
+#'
+#' plot(x, y, type="h", col=(y>0)+4)
+#' axes(nx=NULL,
+#'   main="Bootstrap Branded Plot", sub="My Subtitle",
+#'   xlab="X Units", ylab="Y Units")
+#' abline(h=0, col=pal("red"), lwd=2)
+#' legend_brand(names(pal())[4:5], lty=1, lwd=2, col=4:5)
+#'
+#' plot(x, type="h", col=pal())
+#' axes(side=c(1,4),
+#'   main="My Bootstrap Branded Plot",
+#'   sub="Histogram, dummy legend", ylab="Frequency")
+#' legend_brand(paste("cat", 1:3), fill=pal(1:3))
+#'
+#' par(opar)
+#'
 legend_brand <- function(
   legend,
   x = "topright",
@@ -97,7 +37,7 @@ legend_brand <- function(
   bty = "n",
   horiz = TRUE,
   xpd = TRUE,
-  inset = c(-0.05, -0.45),
+  inset = c(-0.05, -0.4),
   par = par.brand(),
   ...
 ) {

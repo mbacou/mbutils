@@ -16,7 +16,7 @@ legend_brand(
   bty = "n",
   horiz = TRUE,
   xpd = TRUE,
-  inset = c(-0.05, -0.45),
+  inset = c(-0.05, -0.4),
   par = par.brand(),
   ...
 )
@@ -240,3 +240,30 @@ Branded legend for base R plots
 ## See also
 
 [`axes()`](https://mbacou.github.io/mbutils/reference/axes.md)
+
+## Examples
+
+``` r
+set.seed(1)
+x <- runif(100, min = -5, max = 5)
+y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
+
+opar <- par(par.brand())
+
+plot(x, y, type="h", col=(y>0)+4)
+axes(nx=NULL,
+  main="Bootstrap Branded Plot", sub="My Subtitle",
+  xlab="X Units", ylab="Y Units")
+abline(h=0, col=pal("red"), lwd=2)
+legend_brand(names(pal())[4:5], lty=1, lwd=2, col=4:5)
+
+
+plot(x, type="h", col=pal())
+axes(side=c(1,4),
+  main="My Bootstrap Branded Plot",
+  sub="Histogram, dummy legend", ylab="Frequency")
+legend_brand(paste("cat", 1:3), fill=pal(1:3))
+
+
+par(opar)
+```
