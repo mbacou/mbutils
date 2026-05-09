@@ -160,9 +160,9 @@ brand_on <- function(...) {
   otheme = ggplot2::theme_set(theme_brand())
 
   # Create new env
-  e <- new.env(parent = emptyenv())
+  e = new.env(parent = emptyenv())
 
-  # Mask generic plot functions
+  # Mask generic plot functions (too many side effects, ignore for now)
   #e$plot.default = plot_brand
   e$legend = legend_brand
   e$ggplot = ggbrand

@@ -110,22 +110,21 @@ y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
 opar <- par(par.brand())
 
-plot(x, y, axes=FALSE,
+plot(x, y)
+axes(nx=NULL, xlab="X Units", ylab="Y Units",
   main="My Bootstrap Branded Plot", sub="Subtitle")
-axes(nx=NULL, xlab="X Units", ylab="Y Units")
 abline(h=0, col="red", lwd=2)
 
 
-plot(x, type="h", col=c("red", "green")[(x > 0) + 1], axes=FALSE,
+plot(x, type="h", col=c("red", "green")[(x > 0) + 1])
+axes(xlab="X units", ylab="Y units",
   main="My Bootstrap Branded Plot", sub="Histogram")
-axes(xlab="X units", ylab="Y units")
 legend_brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
 
 
-hist(x, col=pal(), border=NA, axes=FALSE,
-  main="My Bootstrap Branded Plot", sub="Histogram, dummy legend",
-  xlab=NA, ylab=NA)
-axes(c(1,4), ylab="Frequency")
+hist(x, col=pal(), border=NA)
+axes(c(1,4), xlab=NA, ylab="Frequency",
+  main="My Bootstrap Branded Plot", sub="Histogram, dummy legend")
 legend_brand(paste("cat", 1:3), fill=pal(1:3), lty=0)
 
 
