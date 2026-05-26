@@ -278,10 +278,12 @@ theme_brand <- function(
         margin = margin(0, 0, 1, 0, "lines"),
         face = "plain",
         size = base_size,
+        color = adjustcolor(base_color, alpha = .5),
         hjust = 0
       ),
       plot.caption = element_text(
         margin = margin(0, 3, 0, 0, "lines"),
+        face = "italic",
         size = base_size * 0.8,
         hjust = 0,
         lineheight = 1
