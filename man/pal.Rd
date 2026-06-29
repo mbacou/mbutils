@@ -4,7 +4,7 @@
 \alias{pal}
 \title{Bootstrap color palette}
 \usage{
-pal(x = NULL, alpha = 0.85, named = TRUE)
+pal(x = NULL, alpha = 0.85, named = TRUE, ...)
 }
 \arguments{
 \item{x}{Color index or name(s), skip to return the entire color palette}
@@ -12,6 +12,13 @@ pal(x = NULL, alpha = 0.85, named = TRUE)
 \item{alpha}{transparency (default: 0.85)}
 
 \item{named}{keep color names (default: TRUE)}
+
+\item{...}{
+  Arguments passed on to \code{\link{brand}}
+  \describe{
+    \item{\code{file}}{path to \verb{_brand.yml} configuration file, normally this file is auto-detected in the working tree, but may be specified here to swap branding dynamically.}
+    \item{\code{font}}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}).}
+  }}
 }
 \value{
 A vector of (named) hex color codes extracted from Bootstrap branding

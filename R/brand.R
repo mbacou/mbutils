@@ -1,7 +1,7 @@
 # Internal helper: name of temporary attached environment
 # This approach also used in thematic package
 options(axes.side = c(3, 4))
-.globals = "mbutils:masks"
+.globals <- "mbutils:masks"
 
 
 #' Built-in default Bootstrap brand
@@ -46,10 +46,10 @@ brand <- function(
   file = "_brand.yml",
   font = c("base", "monospace", "headings")
 ) {
-  file = if (missing(file)) "_brand.yml" else file
-  font = match.arg(font)
+  file <- if (missing(file)) "_brand.yml" else file
+  font <- match.arg(font)
 
-  b = if (file.exists(file)) {
+  b <- if (file.exists(file)) {
     read_yaml(file)
   } else {
     message(
@@ -67,14 +67,14 @@ brand <- function(
     stop("Boostrap branding needs color and font definitions.")
   }
 
-  font = b$typography[[font]]$family
+  font <- b$typography[[font]]$family
   # Get font if not found, assume Google font
   if (!font %in% font_families()) {
     font_add_google(font)
     #showtext_auto()
   }
 
-  b$font = font
+  b$font <- font
   return(b)
 }
 
@@ -148,30 +148,30 @@ brand_on <- function(...) {
   brand_off()
 
   # Load _brand.yml config
-  b = brand(...)
+  b <- brand(...)
 
   # Set session color palette
-  opal = palette(unlist(b$color$palette))
+  opal <- palette(unlist(b$color$palette))
 
   # Set graphic parameters
-  opar = par(par.brand())
+  opar <- par(par.brand())
 
   # Set global ggplot theme
-  otheme = ggplot2::theme_set(theme_brand())
+  otheme <- ggplot2::theme_set(theme_brand())
 
   # Create new env
-  e = new.env(parent = emptyenv())
+  e <- new.env(parent = emptyenv())
 
   # Mask generic plot functions (too many side effects, ignore for now)
   #e$plot.default = plot_brand
-  e$legend = legend_brand
-  e$ggplot = ggbrand
+  e$legend <- legend_brand
+  e$ggplot <- ggbrand
 
   # Set globals so we can restore state
-  e$brand = b
-  e$par = opar
-  e$palette = opal
-  e$theme = otheme
+  e$brand <- b
+  e$par <- opar
+  e$palette <- opal
+  e$theme <- otheme
 
   # Attach env just after mbutils on the search path
   attach(e, name = .globals, warn.conflicts = FALSE)
@@ -194,7 +194,7 @@ brand_off <- function() {
 
   # Restore state
   if (.globals %in% search()) {
-    e = as.environment(.globals)
+    e <- as.environment(.globals)
     par(e$par)
     palette(e$palette)
     ggplot2::theme_set(e$theme)
@@ -214,6 +214,7 @@ brand_off <- function() {
 #' @param x Color index or name(s), skip to return the entire color palette
 #' @param alpha transparency (default: 0.85)
 #' @param named keep color names (default: TRUE)
+#' @inheritDotParams brand
 #'
 #' @return A vector of (named) hex color codes extracted from Bootstrap branding
 #' @references [brand.yml](https://posit-dev.github.io/brand-yml/)
@@ -222,20 +223,20 @@ brand_off <- function() {
 #' scales::show_col(pal(c("orange", "red")))
 #'
 #' @export
-pal <- function(x = NULL, alpha = .85, named = TRUE) {
-  b = if (.globals %in% search()) {
+pal <- function(x = NULL, alpha = .85, named = TRUE, ...) {
+  b <- if (.globals %in% search()) {
     # Search the environment
     as.environment(.globals)$brand
   } else {
     # Or call `brand()`
-    suppressMessages(brand())
+    suppressMessages(brand(...))
   }
 
-  p = if (missing(x)) b$color$palette else b$color$palette[x]
-  n = names(p)
-  p = adjustcolor(unlist(p), alpha.f = alpha)
+  p <- if (missing(x)) b$color$palette else b$color$palette[x]
+  n <- names(p)
+  p <- adjustcolor(unlist(p), alpha.f = alpha)
   if (named) {
-    names(p) = n
+    names(p) <- n
   }
   return(p)
 }
@@ -258,8 +259,8 @@ pal <- function(x = NULL, alpha = .85, named = TRUE) {
 #'s
 #' @export
 brand.colors <- function(x = NULL, omit = c("white", "black", "gray"), ...) {
-  x = if (missing(x)) names(pal()) else x
-  x = setdiff(x, omit)
-  x = pal(x)
+  x <- if (missing(x)) names(pal()) else x
+  x <- setdiff(x, omit)
+  x <- pal(x)
   colorRampPalette(unname(x), ...)
 }

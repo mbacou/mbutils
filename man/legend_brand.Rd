@@ -5,9 +5,9 @@
 \title{Wrapper for graphics::legend()}
 \usage{
 legend_brand(
-  legend,
   x = "topright",
   y = NULL,
+  legend,
   bty = "n",
   horiz = TRUE,
   xpd = TRUE,
@@ -17,13 +17,13 @@ legend_brand(
 )
 }
 \arguments{
-\item{legend}{a character or \link{expression} vector
-    of length \eqn{\ge 1} to appear in the legend.  Other
-    objects will be coerced by \code{\link{as.graphicsAnnot}}.}
-
 \item{x, y}{the x and y co-ordinates to be used to position the legend.
     They can be specified by keyword or in any way which is accepted by
     \code{\link{xy.coords}}: See \sQuote{Details}.}
+
+\item{legend}{a character or \link{expression} vector
+    of length \eqn{\ge 1} to appear in the legend.  Other
+    objects will be coerced by \code{\link{as.graphicsAnnot}}.}
 
 \item{bty}{the type of box to be drawn around the legend.  The allowed
     values are \code{"o"} (the default) and \code{"n"}.}

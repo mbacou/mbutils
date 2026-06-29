@@ -31,9 +31,9 @@
 #'
 #' @export
 legend_brand <- function(
-  legend,
   x = "topright",
   y = NULL,
+  legend,
   bty = "n",
   horiz = TRUE,
   xpd = TRUE,
@@ -116,16 +116,16 @@ axes <- function(
   grid.lty = "dotted",
   grid.lwd = par("lwd")
 ) {
-  side = if (is.null(side)) c(1, 2) else side
+  side <- if (is.null(side)) c(1, 2) else side
 
-  side = match.arg(
+  side <- match.arg(
     as.character(side),
     choices = as.character(0:4),
     several.ok = TRUE
   )
 
   # Override local par()
-  opar = par(
+  opar <- par(
     col.lab = par("fg"),
     ann = TRUE,
     xaxt = "s",
@@ -135,8 +135,8 @@ axes <- function(
   on.exit(suppressWarnings(par(opar)))
 
   # Axis line type logic
-  axes.lty = if (missing(axes.lty)) c(1 * is.na(nx), 0) else axes.lty
-  axes.lty = if (length(axes.lty) == 1) rep(axes.lty, 2) else axes.lty
+  axes.lty <- if (missing(axes.lty)) c(1 * is.na(nx), 0) else axes.lty
+  axes.lty <- if (length(axes.lty) == 1) rep(axes.lty, 2) else axes.lty
 
   if (1 %in% side) {
     axis(1, lty = axes.lty[1], line = line[1], at = at[["x"]], gap.axis = gap.axis[1])
@@ -203,7 +203,7 @@ axes <- function(
 #'
 #' @export
 par.brand <- function(fg = NULL, bg = NULL, font = "base", ...) {
-  b = if (.globals %in% search()) {
+  b <- if (.globals %in% search()) {
     # Search the environment
     as.environment(.globals)$brand
   } else {
@@ -212,18 +212,18 @@ par.brand <- function(fg = NULL, bg = NULL, font = "base", ...) {
   }
 
   # Provide package defaults
-  p = unlist(b$color$palette)
-  bg = if (missing(bg)) p[b$color$background] else bg
-  fg = if (missing(fg)) p[b$color$foreground] else fg
+  p <- unlist(b$color$palette)
+  bg <- if (missing(bg)) p[b$color$background] else bg
+  fg <- if (missing(fg)) p[b$color$foreground] else fg
 
   # Check for Bootstrap names
-  bg = if (bg %in% names(p)) p[bg] else bg
-  fg = if (fg %in% names(p)) p[fg] else fg
-  bg = unname(bg)
-  fg = unname(fg)
+  bg <- if (bg %in% names(p)) p[bg] else bg
+  fg <- if (fg %in% names(p)) p[fg] else fg
+  bg <- unname(bg)
+  fg <- unname(fg)
 
   # Get font, if not found assume Google font
-  font = if (font %in% names(b$typography)) {
+  font <- if (font %in% names(b$typography)) {
     b$typography[[font]]$family
   } else {
     font
@@ -232,9 +232,9 @@ par.brand <- function(fg = NULL, bg = NULL, font = "base", ...) {
     font_add_google(font)
   }
 
-  p = list(
+  p <- list(
     bty = "n",
-    mar = c(3.1, 2.1, 6.5, 3.1),
+    mar = c(4.1, 4.1, 6.5, 3.1),
     mgp = c(1, 0.5, 0), # axis title, labels, line spacing
     pty = "m",
 
