@@ -4,7 +4,13 @@
 \alias{pal}
 \title{Bootstrap color palette}
 \usage{
-pal(x = NULL, alpha = 0.85, named = TRUE, ...)
+pal(
+  x = NULL,
+  alpha = 0.85,
+  named = TRUE,
+  omit = c("white", "black", "gray", "grid"),
+  ...
+)
 }
 \arguments{
 \item{x}{Color index or name(s), skip to return the entire color palette}
@@ -13,18 +19,25 @@ pal(x = NULL, alpha = 0.85, named = TRUE, ...)
 
 \item{named}{keep color names (default: TRUE)}
 
+\item{omit}{Brand colors to exclude from color ramp}
+
 \item{...}{
   Arguments passed on to \code{\link{brand}}
   \describe{
-    \item{\code{file}}{path to \verb{_brand.yml} configuration file, normally this file is auto-detected in the working tree, but may be specified here to swap branding dynamically.}
-    \item{\code{font}}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}).}
+    \item{\code{file}}{path to \verb{_brand.yml} configuration file, normally this file is
+auto-detected in the working tree, but may be specified here to swap branding
+dynamically.}
+    \item{\code{font}}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace},
+or \code{headings}).}
   }}
 }
 \value{
 A vector of (named) hex color codes extracted from Bootstrap branding
 }
 \description{
-Color palette extracted from the active Bootstrap theme. By default colors are read from an external \verb{_brand.yml} configuration file (or uses this package built-in brand).
+Color palette extracted from the active Bootstrap theme. By default colors are
+extracted from an external \verb{_brand.yml} configuration file (or uses this package
+built-in branding).
 }
 \examples{
 scales::show_col(pal())

@@ -19,9 +19,12 @@ thematic_brand(
 )
 }
 \arguments{
-\item{file}{path to \verb{_brand.yml} configuration file, normally this file is auto-detected in the working tree, but may be specified here to swap branding dynamically.}
+\item{file}{path to \verb{_brand.yml} configuration file, normally this file is
+auto-detected in the working tree, but may be specified here to swap branding
+dynamically.}
 
-\item{font}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}).}
+\item{font}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace},
+or \code{headings}).}
 
 \item{bg}{a background color.}
 
@@ -49,7 +52,8 @@ levels exceeds the max allowed colors). Defaults to \code{\link[thematic:okabe_i
 a thematic theme object (list)
 }
 \description{
-Applies Bootstrap branding to R graphics using \code{thematic} R package utilities. This function behaves like \code{thematic::thematic_on()} but instead of passing individual colors and fonts, the user can provide an external \verb{_brand.yml} configuration file. \code{brand_on} takes color and font variable names per Boostrap branding (hence, do not provide hex color codes, edit \verb{_brand.yml} instead).
+Applies Bootstrap branding to R graphics using \code{thematic} R package utilities.
+This function behaves like \code{thematic::thematic_on()} but instead of passing individual colors and fonts, the user can provide an external \verb{_brand.yml} configuration file. \code{brand_on} takes color and font variable names per Boostrap branding (hence, do not provide hex color codes, edit \verb{_brand.yml} instead).
 }
 \details{
 Typically charts will use Boostrap \strong{sans-serif} font, but as of compiling that variable is not available in \code{brand.yml} schema, so \code{brand_theme} will take the \strong{first} font declared in the \strong{typography} tree.

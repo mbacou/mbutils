@@ -7,15 +7,20 @@
 brand(file = "_brand.yml", font = c("base", "monospace", "headings"))
 }
 \arguments{
-\item{file}{path to \verb{_brand.yml} configuration file, normally this file is auto-detected in the working tree, but may be specified here to swap branding dynamically.}
+\item{file}{path to \verb{_brand.yml} configuration file, normally this file is
+auto-detected in the working tree, but may be specified here to swap branding
+dynamically.}
 
-\item{font}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}).}
+\item{font}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace},
+or \code{headings}).}
 }
 \value{
 List of branding elements similar in structure to \verb{_brand.yml}
 }
 \description{
-Make this package compatible with \code{brand.yml} unified branding features. Branding can be read from a configuration file provided at run-time, else it will use this package built-in theme.
+Make this package compatible with \code{brand.yml} unified branding features. Branding
+can be read from a configuration file provided at run-time, else it will use this
+package built-in theme.
 }
 \details{
 Refer to \href{https://posit-dev.github.io/brand-yml/}{brand.yml} for documentation.

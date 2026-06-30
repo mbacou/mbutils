@@ -125,7 +125,7 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) +
 
 })
 
-#> Error : thematic doesn't (yet) support the 'agg_record_192551badadc5' graphics device. Please report this error to https://github.com/rstudio/thematic/issues/new
+#> Error : thematic doesn't (yet) support the 'agg_record_4d99c5be738' graphics device. Please report this error to https://github.com/rstudio/thematic/issues/new
 
-#> Error : thematic doesn't (yet) support the 'agg_record_192551badadc5' graphics device. Please report this error to https://github.com/rstudio/thematic/issues/new
+#> Error : thematic doesn't (yet) support the 'agg_record_4d99c5be738' graphics device. Please report this error to https://github.com/rstudio/thematic/issues/new
 ```

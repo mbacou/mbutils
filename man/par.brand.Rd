@@ -28,7 +28,7 @@ a list of graphical parameters
 Opinionated mods to base R plots compatible with new \verb{_brand.yml} feature. Does not load any brand by itself, explicitely call \code{\link[=brand_on]{brand_on()}} if needed instead.
 }
 \examples{
-opar <- par(par.brand())
+opar = par(par.brand())
 par()
 # Restore plotting device to default state
 par(opar)

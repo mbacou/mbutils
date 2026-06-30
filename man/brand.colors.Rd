@@ -4,7 +4,7 @@
 \alias{brand.colors}
 \title{Bootstrap color ramp}
 \usage{
-brand.colors(x = NULL, omit = c("white", "black", "gray"), ...)
+brand.colors(x = NULL, omit = c("white", "black", "gray", "grid"), ...)
 }
 \arguments{
 \item{x}{Brand color name(s), skip to return the entire color palette}
@@ -30,13 +30,13 @@ brand.colors(x = NULL, omit = c("white", "black", "gray"), ...)
 color palette function
 }
 \description{
-Qualitative color ramp derived from active branding. This ramp excludes Bootstrap's
-\strong{white}, \strong{black}, \strong{light} and \strong{gray} colors, which are typically used for
-textual elements.
+Qualitative color ramp derived from active branding. This ramp excludes
+Bootstrap's \strong{white}, \strong{black}, \strong{grid} and \strong{gray} colors, which are
+typically used for textual elements.
 }
 \examples{
 scales::show_col(brand.colors()(6))
 scales::show_col(brand.colors(interpolate="spline")(12))
 scales::show_col(brand.colors(c("orange", "light"))(12))
-s
+
 }

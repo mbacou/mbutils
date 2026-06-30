@@ -10,20 +10,29 @@ brand_on(...)
 \item{...}{
   Arguments passed on to \code{\link{brand}}
   \describe{
-    \item{\code{file}}{path to \verb{_brand.yml} configuration file, normally this file is auto-detected in the working tree, but may be specified here to swap branding dynamically.}
-    \item{\code{font}}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace}, or \code{headings}).}
+    \item{\code{file}}{path to \verb{_brand.yml} configuration file, normally this file is
+auto-detected in the working tree, but may be specified here to swap branding
+dynamically.}
+    \item{\code{font}}{one of \verb{_brand.yml} font families (currently only \code{base}, \code{monospace},
+or \code{headings}).}
   }}
 }
 \value{
 (invisible) list of branding elements similar in structure to \verb{_brand.yml}
 }
 \description{
-This function is inspired by \code{\link[thematic:thematic_on]{thematic::thematic_on()}}. It modifies base R graphics, lattice, and ggplot colors and fonts to match a user-specified Bootstrap theme (using \verb{_brand.yml}) features. It also modifies the appearance of plot axes and legends (see examples).
+This function is inspired by \code{\link[thematic:thematic_on]{thematic::thematic_on()}}. It modifies base R
+graphics, lattice, and ggplot colors and fonts to match a user-specified Bootstrap
+theme (using \verb{_brand.yml}) features. It also modifies the appearance of plot axes
+and legends (see examples).
 }
 \details{
-Calling \code{brand_on()} has a few side effects in that it modifies global \code{par()} parameters, ggplot theme and color palette, and it will silently mask generic functions \code{graphics::plot}, \code{ggplot2::ggplot()} and `graphics::legend()'.
+Calling \code{brand_on()} has a few side effects in that it modifies global \code{par()}
+parameters, ggplot theme and color palette, and it will silently mask generic
+functions \code{graphics::plot}, \code{ggplot2::ggplot()} and `graphics::legend()'.
 
-Use in combination with \code{\link[=brand_off]{brand_off()}} to restore the environment to its original state.
+Use in combination with \code{\link[=brand_off]{brand_off()}} to restore the environment to its original
+state.
 }
 \examples{
 require(ggplot2)
@@ -31,8 +40,8 @@ brand_on(font="monospace")
 scales::show_col(pal())
 
 set.seed(1)
-x <- runif(100, min = -5, max = 5)
-y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
+x = runif(100, min = -5, max = 5)
+y = x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
 plot(x, y, col=4)
 axes(main="Bootstrap Branded Plot", sub="Scatter plot")
@@ -42,13 +51,13 @@ axes(nx=NULL,
   main="Bootstrap Branded Plot", sub="My Subtitle",
   xlab="X Units", ylab="Y Units")
 abline(h=0, col=pal("red"), lwd=2)
-legend(names(pal())[4:5], lty=1, lwd=2, col=4:5)
+legend(legend=names(pal())[4:5], lty=1, lwd=2, col=4:5)
 
 plot(x, type="h", col=pal())
 axes(side=c(1,4),
   main="My Bootstrap Branded Plot",
   sub="Histogram, dummy legend", ylab="Frequency")
-legend(paste("cat", 1:3), fill=pal(1:3))
+legend(legend=paste("cat", 1:3), fill=pal(1:3))
 
 # Plot ecdf
 plot(ecdf(rnorm(10)))

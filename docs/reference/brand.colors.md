@@ -1,13 +1,13 @@
 # Bootstrap color ramp
 
 Qualitative color ramp derived from active branding. This ramp excludes
-Bootstrap's **white**, **black**, **light** and **gray** colors, which
+Bootstrap's **white**, **black**, **grid** and **gray** colors, which
 are typically used for textual elements.
 
 ## Usage
 
 ``` r
-brand.colors(x = NULL, omit = c("white", "black", "gray"), ...)
+brand.colors(x = NULL, omit = c("white", "black", "gray", "grid"), ...)
 ```
 
 ## Arguments
@@ -61,6 +61,4 @@ scales::show_col(brand.colors(interpolate="spline")(12))
 
 scales::show_col(brand.colors(c("orange", "light"))(12))
 
-s
-#> Error: object 's' not found
 ```

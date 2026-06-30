@@ -9,28 +9,28 @@
 #' @returns Branded legend for base R plots
 #' @examples
 #' set.seed(1)
-#' x <- runif(100, min = -5, max = 5)
-#' y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
+#' x = runif(100, min = -5, max = 5)
+#' y = x ^ 3 + rnorm(100, mean = 0, sd = 5)
 #'
-#' opar <- par(par.brand())
+#' opar = par(par.brand())
 #'
 #' plot(x, y, type="h", col=(y>0)+4)
 #' axes(nx=NULL,
 #'   main="Bootstrap Branded Plot", sub="My Subtitle",
 #'   xlab="X Units", ylab="Y Units")
 #' abline(h=0, col=pal("red"), lwd=2)
-#' legend_brand(names(pal())[4:5], lty=1, lwd=2, col=4:5)
+#' legend_brand(legend=names(pal())[4:5], lty=1, lwd=2, col=4:5)
 #'
 #' plot(x, type="h", col=pal())
 #' axes(side=c(1,4),
 #'   main="My Bootstrap Branded Plot",
 #'   sub="Histogram, dummy legend", ylab="Frequency")
-#' legend_brand(paste("cat", 1:3), fill=pal(1:3))
+#' legend_brand(legend=paste("cat", 1:3), fill=pal(1:3))
 #'
 #' par(opar)
 #'
 #' @export
-legend_brand <- function(
+legend_brand = function(
   x = "topright",
   y = NULL,
   legend,
@@ -76,10 +76,10 @@ legend_brand <- function(
 #' @returns Branded axis and grid for base R plots
 #' @examples
 #' set.seed(1)
-#' x <- runif(100, min = -5, max = 5)
-#' y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
+#' x = runif(100, min = -5, max = 5)
+#' y = x ^ 3 + rnorm(100, mean = 0, sd = 5)
 #'
-#' opar <- par(par.brand())
+#' opar = par(par.brand())
 #'
 #' plot(x, y)
 #' axes(nx=NULL, xlab="X Units", ylab="Y Units",
@@ -89,18 +89,18 @@ legend_brand <- function(
 #' plot(x, type="h", col=c("red", "green")[(x > 0) + 1])
 #' axes(xlab="X units", ylab="Y units",
 #'   main="My Bootstrap Branded Plot", sub="Histogram")
-#' legend_brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
+#' legend_brand(legend=c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
 #'
 #' hist(x, col=pal(), border=NA)
 #' axes(c(1,4), xlab=NA, ylab="Frequency",
 #'   main="My Bootstrap Branded Plot", sub="Histogram, dummy legend")
-#' legend_brand(paste("cat", 1:3), fill=pal(1:3), lty=0)
+#' legend_brand(legend=paste("cat", 1:3), fill=pal(1:3), lty=0)
 #'
 #' # Restore
 #' par(opar)
 #'
 #' @export
-axes <- function(
+axes = function(
   side = getOption("axes.side"),
   at = list(x = NULL, y = NULL),
   axes.lty = NULL,
@@ -116,16 +116,16 @@ axes <- function(
   grid.lty = "dotted",
   grid.lwd = par("lwd")
 ) {
-  side <- if (is.null(side)) c(1, 2) else side
+  side = if (is.null(side)) c(1, 2) else side
 
-  side <- match.arg(
+  side = match.arg(
     as.character(side),
     choices = as.character(0:4),
     several.ok = TRUE
   )
 
   # Override local par()
-  opar <- par(
+  opar = par(
     col.lab = par("fg"),
     ann = TRUE,
     xaxt = "s",
@@ -135,8 +135,8 @@ axes <- function(
   on.exit(suppressWarnings(par(opar)))
 
   # Axis line type logic
-  axes.lty <- if (missing(axes.lty)) c(1 * is.na(nx), 0) else axes.lty
-  axes.lty <- if (length(axes.lty) == 1) rep(axes.lty, 2) else axes.lty
+  axes.lty = if (missing(axes.lty)) c(1 * is.na(nx), 0) else axes.lty
+  axes.lty = if (length(axes.lty) == 1) rep(axes.lty, 2) else axes.lty
 
   if (1 %in% side) {
     axis(1, lty = axes.lty[1], line = line[1], at = at[["x"]], gap.axis = gap.axis[1])
@@ -196,14 +196,14 @@ axes <- function(
 #' @inheritDotParams graphics::par
 #' @returns a list of graphical parameters
 #' @examples
-#' opar <- par(par.brand())
+#' opar = par(par.brand())
 #' par()
 #' # Restore plotting device to default state
 #' par(opar)
 #'
 #' @export
-par.brand <- function(fg = NULL, bg = NULL, font = "base", ...) {
-  b <- if (.globals %in% search()) {
+par.brand = function(fg = NULL, bg = NULL, font = "base", ...) {
+  b = if (.globals %in% search()) {
     # Search the environment
     as.environment(.globals)$brand
   } else {
@@ -212,18 +212,18 @@ par.brand <- function(fg = NULL, bg = NULL, font = "base", ...) {
   }
 
   # Provide package defaults
-  p <- unlist(b$color$palette)
-  bg <- if (missing(bg)) p[b$color$background] else bg
-  fg <- if (missing(fg)) p[b$color$foreground] else fg
+  p = unlist(b$color$palette)
+  bg = if (missing(bg)) p[b$color$background] else bg
+  fg = if (missing(fg)) p[b$color$foreground] else fg
 
   # Check for Bootstrap names
-  bg <- if (bg %in% names(p)) p[bg] else bg
-  fg <- if (fg %in% names(p)) p[fg] else fg
-  bg <- unname(bg)
-  fg <- unname(fg)
+  bg = if (bg %in% names(p)) p[bg] else bg
+  fg = if (fg %in% names(p)) p[fg] else fg
+  bg = unname(bg)
+  fg = unname(fg)
 
   # Get font, if not found assume Google font
-  font <- if (font %in% names(b$typography)) {
+  font = if (font %in% names(b$typography)) {
     b$typography[[font]]$family
   } else {
     font
@@ -232,7 +232,7 @@ par.brand <- function(fg = NULL, bg = NULL, font = "base", ...) {
     font_add_google(font)
   }
 
-  p <- list(
+  p = list(
     bty = "n",
     mar = c(4.1, 4.1, 6.5, 3.1),
     mgp = c(1, 0.5, 0), # axis title, labels, line spacing

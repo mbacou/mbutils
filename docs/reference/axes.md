@@ -105,10 +105,10 @@ provide margin space for all plot labels.
 
 ``` r
 set.seed(1)
-x <- runif(100, min = -5, max = 5)
-y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
+x = runif(100, min = -5, max = 5)
+y = x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
-opar <- par(par.brand())
+opar = par(par.brand())
 
 plot(x, y)
 axes(nx=NULL, xlab="X Units", ylab="Y Units",
@@ -119,13 +119,13 @@ abline(h=0, col="red", lwd=2)
 plot(x, type="h", col=c("red", "green")[(x > 0) + 1])
 axes(xlab="X units", ylab="Y units",
   main="My Bootstrap Branded Plot", sub="Histogram")
-legend_brand(c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
+legend_brand(legend=c("Red", "Green"), lty=1, lwd=2, col=c("red", "green"))
 
 
 hist(x, col=pal(), border=NA)
 axes(c(1,4), xlab=NA, ylab="Frequency",
   main="My Bootstrap Branded Plot", sub="Histogram, dummy legend")
-legend_brand(paste("cat", 1:3), fill=pal(1:3), lty=0)
+legend_brand(legend=paste("cat", 1:3), fill=pal(1:3), lty=0)
 
 
 # Restore

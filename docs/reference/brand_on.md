@@ -56,7 +56,6 @@ to restore the environment to its original state.
 
 ``` r
 require(ggplot2)
-#> Loading required package: ggplot2
 brand_on(font="monospace")
 #> No `_brand.yml` found in the working tree.
 #>       Loaded built-in `Mel B. Labs` theme instead.
@@ -64,8 +63,8 @@ scales::show_col(pal())
 
 
 set.seed(1)
-x <- runif(100, min = -5, max = 5)
-y <- x ^ 3 + rnorm(100, mean = 0, sd = 5)
+x = runif(100, min = -5, max = 5)
+y = x ^ 3 + rnorm(100, mean = 0, sd = 5)
 
 plot(x, y, col=4)
 axes(main="Bootstrap Branded Plot", sub="Scatter plot")
@@ -76,14 +75,14 @@ axes(nx=NULL,
   main="Bootstrap Branded Plot", sub="My Subtitle",
   xlab="X Units", ylab="Y Units")
 abline(h=0, col=pal("red"), lwd=2)
-legend(names(pal())[4:5], lty=1, lwd=2, col=4:5)
+legend(legend=names(pal())[4:5], lty=1, lwd=2, col=4:5)
 
 
 plot(x, type="h", col=pal())
 axes(side=c(1,4),
   main="My Bootstrap Branded Plot",
   sub="Histogram, dummy legend", ylab="Frequency")
-legend(paste("cat", 1:3), fill=pal(1:3))
+legend(legend=paste("cat", 1:3), fill=pal(1:3))
 
 
 # Plot ecdf

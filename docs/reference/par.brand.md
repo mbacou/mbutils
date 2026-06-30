@@ -45,7 +45,7 @@ a list of graphical parameters
 ## Examples
 
 ``` r
-opar <- par(par.brand())
+opar = par(par.brand())
 par()
 #> $xlog
 #> [1] FALSE

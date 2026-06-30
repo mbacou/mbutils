@@ -9,7 +9,7 @@
 #' @seealso scale_labs_df
 #' @return a color scale
 #' @export
-scale_brand_dc <- function(x, ...) {
+scale_brand_dc = function(x, ...) {
   discrete_scale("color", palette = brand.colors(x), ...)
 }
 
@@ -24,7 +24,7 @@ scale_brand_dc <- function(x, ...) {
 #' @seealso scale_labs_dc
 #' @return a fill scale
 #' @export
-scale_brand_df <- function(x, ...) {
+scale_brand_df = function(x, ...) {
   discrete_scale("fill", palette = brand.colors(x), ...)
 }
 
@@ -39,7 +39,7 @@ scale_brand_df <- function(x, ...) {
 #' @seealso scale_labs_cf
 #' @return a color scale
 #' @export
-scale_brand_cc <- function(x = c("orange", "light", "green"), ...) {
+scale_brand_cc = function(x = c("orange", "light", "green"), ...) {
   continuous_scale("color", palette = brand.colors(x), ...)
 }
 
@@ -53,14 +53,15 @@ scale_brand_cc <- function(x = c("orange", "light", "green"), ...) {
 #' @seealso scale_labs_cc
 #' @return a fill scale
 #' @export
-scale_brand_cf <- function(x = c("orange", "light", "green"), ...) {
+scale_brand_cf = function(x = c("orange", "light", "green"), ...) {
   continuous_scale("fill", palette = brand.colors(x), ...)
 }
 
 
 #' Thematic-ally apply Bootstrap brand to base, lattice and ggplot2 graphics
 #'
-#' Applies Bootstrap branding to R graphics using `thematic` R package utilities. This function behaves like `thematic::thematic_on()` but instead of passing individual colors and fonts, the user can provide an external `_brand.yml` configuration file. `brand_on` takes color and font variable names per Boostrap branding (hence, do not provide hex color codes, edit `_brand.yml` instead).
+#' Applies Bootstrap branding to R graphics using `thematic` R package utilities.
+#' This function behaves like `thematic::thematic_on()` but instead of passing individual colors and fonts, the user can provide an external `_brand.yml` configuration file. `brand_on` takes color and font variable names per Boostrap branding (hence, do not provide hex color codes, edit `_brand.yml` instead).
 #'
 #' Typically charts will use Boostrap **sans-serif** font, but as of compiling that variable is not available in `brand.yml` schema, so `brand_theme` will take the **first** font declared in the **typography** tree.
 #'
@@ -104,7 +105,7 @@ scale_brand_cf <- function(x = c("orange", "light", "green"), ...) {
 #' })
 #'
 #' @export
-thematic_brand <- function(
+thematic_brand = function(
   file = NULL,
   font = NULL,
   bg = "background",
@@ -209,7 +210,7 @@ thematic_brand <- function(
 #'     theme_brand(base_color="light", base_bg="dark")
 #'
 #' @export
-theme_brand <- function(
+theme_brand = function(
   base_color = NULL,
   base_bg = NULL,
   base_family = "base",
@@ -379,7 +380,7 @@ theme_brand <- function(
 #'     caption = "My plot caption with many references.")
 #'
 #' @export
-ggbrand <- function(
+ggbrand = function(
   data = NULL,
   mapping = aes(),
   axes = c("bottomright", "topright", "bottomleft", "topleft"),
