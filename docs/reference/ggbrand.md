@@ -71,6 +71,12 @@ ggbrand(
 
   :   base font size, given in pts.
 
+  `file`
+
+  :   path to `_brand.yml` configuration file, normally this file is
+      auto-detected in the working tree, but may be specified here to
+      swap branding dynamically.
+
 ## Value
 
 A `ggplot2` object with themef elements

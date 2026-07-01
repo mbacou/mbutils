@@ -12,6 +12,7 @@ theme_brand(
   grid = c("Y", "X", "XY", "n"),
   legend = c("top", "bottom", "right", "left"),
   gradient = c("orange", "light", "green"),
+  file = "_brand.yml",
   ...
 )
 }
@@ -29,6 +30,10 @@ theme_brand(
 \item{legend}{shorthand for \code{theme(legend.position="...")} (default: \code{top})}
 
 \item{gradient}{names of Bootstrap colors for continuous gradient (default: \code{c("blue", "orange", "red")})}
+
+\item{file}{path to \verb{_brand.yml} configuration file, normally this file is
+auto-detected in the working tree, but may be specified here to swap branding
+dynamically.}
 
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:theme]{ggplot2::theme}}
@@ -240,7 +245,7 @@ ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) + geom_col() +
     subtitle = "My very long subtitle with many units",
     caption = "My very long plot caption with many references.") +
     theme_brand(grid="XY",
-      base_color="gray", base_bg="white", base_family="Pacifico")
+      base_color="gray", base_bg="white", base_family="headings")
 
 ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) + geom_col() +
   guides(y=guide_axis(position="right")) +

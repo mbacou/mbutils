@@ -51,9 +51,8 @@ brand = function(
   file = "_brand.yml",
   font = c("base", "monospace", "headings")
 ) {
-  file = if (missing(file)) "_brand.yml" else file
   font = match.arg(font)
-
+  file = if (missing(file)) "_brand.yml" else file
   b = if (file.exists(file)) {
     read_yaml(file)
   } else {

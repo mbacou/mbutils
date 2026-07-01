@@ -31,6 +31,9 @@ If not specified, must be supplied in each layer added to the plot.}
     \item{\code{legend}}{shorthand for \code{theme(legend.position="...")} (default: \code{top})}
     \item{\code{gradient}}{names of Bootstrap colors for continuous gradient (default: \code{c("blue", "orange", "red")})}
     \item{\code{base_size}}{base font size, given in pts.}
+    \item{\code{file}}{path to \verb{_brand.yml} configuration file, normally this file is
+auto-detected in the working tree, but may be specified here to swap branding
+dynamically.}
   }}
 }
 \value{

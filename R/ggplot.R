@@ -174,6 +174,7 @@ thematic_brand = function(
 #' @param legend shorthand for `theme(legend.position="...")` (default: `top`)
 #' @param gradient names of Bootstrap colors for continuous gradient (default: `c("blue", "orange", "red")`)
 #' @inheritParams ggthemes::theme_foundation
+#' @inheritParams brand
 #' @inheritDotParams ggplot2::theme
 #'
 #' @return A ggplot2 theme
@@ -199,7 +200,7 @@ thematic_brand = function(
 #'     subtitle = "My very long subtitle with many units",
 #'     caption = "My very long plot caption with many references.") +
 #'     theme_brand(grid="XY",
-#'       base_color="gray", base_bg="white", base_family="Pacifico")
+#'       base_color="gray", base_bg="white", base_family="headings")
 #'
 #' ggplot(mtcars, aes(factor(carb), mpg, fill=carb)) + geom_col() +
 #'   guides(y=guide_axis(position="right")) +
@@ -218,6 +219,7 @@ theme_brand = function(
   grid = c("Y", "X", "XY", "n"),
   legend = c("top", "bottom", "right", "left"),
   gradient = c("orange", "light", "green"),
+  file = "_brand.yml",
   ...
 ) {
   grid = match.arg(grid)
@@ -227,8 +229,8 @@ theme_brand = function(
     # Search the environment
     as.environment(.globals)$brand
   } else {
-    # Or call `brand()`
-    suppressMessages(brand())
+    # Or call `brand()` to load config
+    suppressMessages(brand(file = file))
   }
 
   p = unlist(b$color$palette)
